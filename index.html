@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>readme.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+<link rel="stylesheet" href="file:///d%3A/Portfolio/ProjectE.H-Portfolio-Home/file%3A/C%3A/Users/CA01244029/Desktop/test.css" type="text/css">
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<link rel="stylesheet" href="style.css">
+<h1 id="elemental-hunters">ELEMENTAL HUNTERS</h1>
+<p><video img = "" controls = "100%"></video></p>
+<h2 id="video-01-%E3%82%BF%E3%82%A4%E3%83%88%E3%83%AB%E7%94%BB%E9%9D%A2">Video 01: タイトル画面</h2>
+<br>
+<h2 id="%E7%9B%AE%E6%AC%A1">目次</h2>
+<ul>
+<li>
+<h2 id="1-%E3%83%97%E3%83%AD%E3%83%95%E3%82%A3%E3%83%BC%E3%83%AB">1. <a href="#1%E3%83%97%E3%83%AD%E3%83%95%E3%82%A3%E3%83%BC%E3%83%AB">プロフィール</a></h2>
+</li>
+<li>
+<h2 id="2-%E4%BD%9C%E5%93%81%E6%A6%82%E8%A6%81">2. <a href="#2%E4%BD%9C%E5%93%81%E6%A6%82%E8%A6%81">作品概要</a></h2>
+</li>
+<li>
+<h2 id="3-%E3%83%81%E3%83%BC%E3%83%A0%E6%A7%8B%E6%88%90%E3%81%A8%E6%8B%85%E5%BD%93%E7%AE%87%E6%89%80">3. <a href="#3%E3%83%81%E3%83%BC%E3%83%A0%E6%A7%8B%E6%88%90%E3%81%A8%E6%8B%85%E5%BD%93%E7%AE%87%E6%89%80">チーム構成と担当箇所</a></h2>
+<h2 id="3-0%E9%96%8B%E7%99%BA%E3%83%81%E3%83%BC%E3%83%A0%E6%A7%8B%E6%88%90">  3-0.<a href="#part3-0">開発チーム構成</a></h2>
+<h2 id="3-1%E6%8B%85%E5%BD%93%E7%AE%87%E6%89%80">  3-1.<a href="#part3-1">担当箇所</a></h2>
+</li>
+<li>
+<h2 id="4-%E3%82%B2%E3%83%BC%E3%83%A0%E3%81%AE%E7%89%B9%E5%BE%B4">4. <a href="#4-%E3%82%B2%E3%83%BC%E3%83%A0%E3%81%AE%E7%89%B9%E5%BE%B4">ゲームの特徴</a></h2>
+</li>
+<li>
+<h2 id="5-%E6%8A%80%E8%A1%93%E7%9A%84%E5%B7%A5%E5%A4%AB%E7%82%B9">5. 技術的工夫点</h2>
+</li>
+<li>
+<h2 id="6-%E9%96%8B%E7%99%BA%E6%99%82%E3%81%AE%E5%B7%A5%E5%A4%AB%E7%82%B9">6. 開発時の工夫点</h2>
+</li>
+<li>
+<h2 id="7-%E4%BB%8A%E5%BE%8C%E3%81%AE%E5%B1%95%E6%9C%9B">7. 今後の展望</h2>
+</li>
+<li>
+<h2 id="8-%E3%83%AA%E3%83%B3%E3%82%AF%E9%9B%86">8. リンク集</h2>
+</li>
+</ul>
+<hr>
+<h2 id="1%E3%83%97%E3%83%AD%E3%83%95%E3%82%A3%E3%83%BC%E3%83%AB">1.プロフィール</h2>
+<ul>
+<li>
+<h2 id="%E6%B0%8F%E5%90%8D-%E5%B1%B1%E5%8F%A3-%E9%9A%BC%E3%83%A4%E3%83%9E%E3%82%B0%E3%83%81-%E3%83%8F%E3%83%A4%E3%83%88">氏名: 山口 隼(ヤマグチ ハヤト)</h2>
+</li>
+<li>
+<h2 id="%E6%89%80%E5%B1%9E-%E6%B2%B3%E5%8E%9F%E9%9B%BB%E5%AD%90%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9%E5%B0%82%E9%96%80%E5%AD%A6%E6%A0%A1-%E3%82%B2%E3%83%BC%E3%83%A0%E3%82%AF%E3%83%AA%E3%82%A8%E3%82%A4%E3%82%BF%E3%83%BC%E7%A7%91-27%E5%8D%92">所属: 河原電子ビジネス専門学校 ゲームクリエイター科 27卒</h2>
+</li>
+<li>
+<h2 id="%E5%B8%8C%E6%9C%9B%E8%81%B7%E7%A8%AE-%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9E">希望職種: プログラマ</h2>
+</li>
+</ul>
+<hr>
+<h2 id="2%E4%BD%9C%E5%93%81%E6%A6%82%E8%A6%81">2.作品概要</h2>
+<ul>
+<li>
+<h2 id="%E4%BD%BF%E7%94%A8%E8%A8%80%E8%AA%9E">使用言語:</h2>
+<h2 id="c14-br">  C++14 <br></h2>
+<h2 id="directx">  DirectX</h2>
+</li>
+<li>
+<h2 id="%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83">開発環境:</h2>
+<h2 id="visualstudio-2022-br">  VisualStudio 2022 <br></h2>
+<h2 id="%E5%AD%A6%E5%86%85%E3%82%A8%E3%83%B3%E3%82%B8%E3%83%B3">  学内エンジン</h2>
+</li>
+<li>
+<h2 id="%E9%96%8B%E7%99%BA%E3%83%84%E3%83%BC%E3%83%AB">開発ツール:</h2>
+<h2 id="%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E7%AE%A1%E7%90%86-github--fork%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88">  バージョン管理: GitHub / Forkクライアント</h2>
+<h2 id="%E9%80%A3%E7%B5%A1%E6%89%8B%E6%AE%B5-teams">  連絡手段: Teams</h2>
+</li>
+</ul>
+<hr>
+<h2 id="3%E3%83%81%E3%83%BC%E3%83%A0%E6%A7%8B%E6%88%90%E3%81%A8%E6%8B%85%E5%BD%93%E7%AE%87%E6%89%80">3.チーム構成と担当箇所</h2>
+<ul>
+<li>
+<h2 id="a-id--%22part3-0%22a3-0%E9%96%8B%E7%99%BA%E3%83%81%E3%83%BC%E3%83%A0%E6%A7%8B%E6%88%90"><a id = "part3-0"></a>3-0.開発チーム構成:</h2>
+<ul>
+<li>
+<h2 id="%E3%82%A2%E3%82%A6%E3%83%88%E3%82%B2%E3%83%BC%E3%83%A0%E5%85%A8%E8%88%AC%E6%8B%85%E5%BD%931%E4%BA%BA">アウトゲーム全般担当:1人</h2>
+<h2 id="ui%E6%BC%94%E5%87%BA%E3%82%B2%E3%83%BC%E3%83%A0%E3%83%95%E3%83%AD%E3%83%BC%E5%85%A8%E4%BD%93%E3%81%AE%E7%AE%A1%E7%90%86">  UI/演出/ゲームフロー全体の管理</h2>
+</li>
+</ul>
+<br>
+<ul>
+<li>
+<h2 id="%E3%82%A4%E3%83%B3%E3%82%B2%E3%83%BC%E3%83%A0%E6%8B%85%E5%BD%932%E4%BA%BA">インゲーム担当2人</h2>
+<h2 id="boss%E3%82%AD%E3%83%A3%E3%83%A9%E3%82%AF%E3%82%BF%E3%83%BCnpc%E6%8B%85%E5%BD%93">  Bossキャラクター/NPC担当</h2>
+<h2 id="player%E3%82%AD%E3%83%A3%E3%83%A9%E3%82%AF%E3%82%BF%E3%83%BC%E3%82%B9%E3%83%86%E3%83%BC%E3%82%B8%E5%88%B6%E5%BE%A1%E6%8B%85%E5%BD%93">  Playerキャラクター/ステージ制御担当</h2>
+</li>
+</ul>
+<h2 id="%E8%A8%883%E4%BA%BA%E6%A7%8B%E6%88%90">計3人構成</h2>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<h2 id="a-id--%22part3-1%22a3-1%E6%8B%85%E5%BD%93%E7%AE%87%E6%89%80"><a id = "part3-1"></a>3-1.担当箇所：</h2>
+<h2 id="%E3%82%B9%E3%83%86%E3%83%BC%E3%82%B8%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E5%88%B6%E4%BD%9C">  ステージモデルの制作</h2>
+<h2 id="%E3%82%B9%E3%83%86%E3%83%BC%E3%82%B8%E3%81%AE%E8%AA%AD%E3%81%BF%E8%BE%BC%E3%81%BF%E3%83%BB%E9%80%B2%E8%A1%8C%E7%AE%A1%E7%90%86%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%AE%E6%A7%8B%E7%AF%89">  ステージの読み込み・進行管理システムの構築</h2>
+<h2 id="%E3%83%97%E3%83%AC%E3%82%A4%E3%83%A4%E3%83%BC%E3%82%A2%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AE%E8%A8%AD%E8%A8%88%E3%83%BB%E5%AE%9F%E8%A3%85%E7%8A%B6%E6%85%8B%E9%81%B7%E7%A7%BB%E3%82%B3%E3%83%B3%E3%83%9C%E3%83%AB%E3%83%BC%E3%83%88%E7%AD%89">  プレイヤーアクションの設計・実装（状態遷移、コンボルート等）</h2>
+<h2 id="%E6%AD%A6%E5%99%A8%E3%81%AE%E5%BD%93%E3%81%9F%E3%82%8A%E5%88%A4%E5%AE%9A%E3%81%A8%E3%83%80%E3%83%A1%E3%83%BC%E3%82%B8%E8%A8%88%E7%AE%97%E3%81%AE%E5%AE%9F%E8%A3%85">  武器の当たり判定とダメージ計算の実装</h2>
+<h2 id="%E3%83%80%E3%83%A1%E3%83%BC%E3%82%B8%E3%83%9D%E3%83%83%E3%83%97%E3%82%A2%E3%83%83%E3%83%97%E3%81%AE%E6%BC%94%E5%87%BA%E3%83%BBui%E5%AE%9F%E8%A3%85">  ダメージポップアップの演出・UI実装</h2>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<h2 id="4%E3%82%B2%E3%83%BC%E3%83%A0%E3%81%AE%E7%89%B9%E5%BE%B4">4.ゲームの特徴</h2>
+<h2 id="%E2%96%A0-%E7%89%B9%E5%BE%B4-1-%E4%BB%B2%E9%96%93%E3%81%A8%E5%85%B1%E9%97%98%E3%81%8C%E3%81%A7%E3%81%8D%E3%82%8B%E3%83%9E%E3%83%AB%E3%83%81%E3%83%97%E3%83%AC%E3%82%A4%E3%82%A2%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%B2%E3%83%BC%E3%83%A0">■ 特徴-1 仲間と共闘ができるマルチプレイアクションゲーム</h2>
+<h2 id="npc%E3%81%A8%E3%83%A6%E3%83%BC%E3%82%B6%E3%83%BC%E3%81%8C%E5%85%B1%E9%97%98%E3%81%99%E3%82%8B3d%E3%82%A2%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%B2%E3%83%BC%E3%83%A0%E3%81%A7%E3%81%99">  NPCとユーザーが共闘する3Dアクションゲームです。</h2>
+<h2 id="%E5%8B%BF%E8%AB%96%E3%82%BD%E3%83%AD%E3%83%97%E3%83%AC%E3%82%A4%E3%82%82%E5%8F%AF%E8%83%BD%E3%81%A7%E3%81%99">  勿論、<strong>ソロプレイ</strong>も可能です。</h2>
+<h2 id="%E3%81%BE%E3%81%9Fhp%E3%81%8C%E3%82%BC%E3%83%AD%E3%81%AB%E3%81%AA%E3%81%A3%E3%81%A6%E5%80%92%E3%82%8C%E3%81%9F%E4%BB%B2%E9%96%93%E3%82%92%E5%8A%A9%E3%81%91%E3%82%8B%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%82%92%E6%90%AD%E8%BC%89%E3%81%97%E3%81%A6%E3%81%8A%E3%82%8A">  また、HPがゼロになって倒れた仲間を助けるシステムを搭載しており、</h2>
+<h2 id="%E3%83%97%E3%83%AC%E3%82%A4%E3%83%A4%E3%83%BCnpc%E9%96%93%E3%81%AE%E5%8D%94%E5%8A%9B%E8%A6%81%E7%B4%A0%E3%82%92%E5%BC%B7%E8%AA%BF%E3%81%97%E3%81%A6%E3%81%84%E3%81%BE%E3%81%99">  プレイヤー/NPC間の協力要素を強調しています。</h2>
+</li>
+</ul>
+
+</body>
+</html>
