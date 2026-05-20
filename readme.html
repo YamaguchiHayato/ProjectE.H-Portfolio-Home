@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>readme.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+<link rel="stylesheet" href="file://d:\Portfolio\ProjectE.H-Portfolio-Home\file:\C:\Users\CA01244029\Desktop\test.css" type="text/css">
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> or <div class="page"></div> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<link rel="stylesheet" href="style.css">
+<h1 id="elemental-hunters">ELEMENTAL HUNTERS</h1>
+<h2 id="最大4人で遊べる2d視点アクションゲーム">最大4人で遊べる2D視点アクションゲーム</h2>
+<a href="Image/title.png" target="_blank">
+  <img src="Image/title.png" width="100%" alt="ELEMENTAL HUNTERS タイトル画面">
+</a>
+<hr>
+<h2 id="最初に見てほしいポイント">最初に見てほしいポイント</h2>
+<table>
+<thead>
+<tr>
+<th>見てほしい内容</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PV</td>
+<td>ゲーム全体の流れ、キャラクター、ボス戦の雰囲気が短時間で分かるため</td>
+</tr>
+<tr>
+<td>キャラクター紹介</td>
+<td>武器ごとの役割やアクションの違いが分かるため</td>
+</tr>
+<tr>
+<td>操作方法・攻撃方法</td>
+<td>入力によって攻撃が変化する本作の面白さが分かるため</td>
+</tr>
+<tr>
+<td>入力Adapter / NPC制御</td>
+<td>PlayerとNPCの処理を共通化した設計意図が分かるため</td>
+</tr>
+<tr>
+<td>発射リクエスト / Factory</td>
+<td>攻撃Stateと弾生成処理の責務分離が分かるため</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="目次">目次</h2>
+<h3 id="よく見てほしい項目">よく見てほしい項目</h3>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#part0-1">PV</a></td>
+<td>ゲーム全体の雰囲気を確認できます</td>
+</tr>
+<tr>
+<td><a href="#4%E3%82%B2%E3%83%BC%E3%83%A0%E3%81%AE%E7%89%B9%E5%BE%B4">ゲームの特徴</a></td>
+<td>どんなゲームか、何が面白いかを確認できます</td>
+</tr>
+<tr>
+<td><a href="#6%E3%82%AD%E3%83%A3%E3%83%A9%E3%82%AF%E3%82%BF%E3%83%BC%E7%B4%B9%E4%BB%8B">キャラクター紹介</a></td>
+<td>武器ごとの役割やアクション差を確認できます</td>
+</tr>
+<tr>
+<td><a href="#7%E6%8A%80%E8%A1%93%E7%9A%84%E5%B7%A5%E5%A4%AB%E7%82%B9">技術的工夫点</a></td>
+<td>設計・実装面で工夫した箇所を確認できます</td>
+</tr>
+<tr>
+<td><a href="#9%E3%83%AA%E3%83%B3%E3%82%AF%E9%9B%86">リンク集</a></td>
+<td>動画・GitHub・提出物へ移動できます</td>
+</tr>
+</tbody>
+</table>
+<details>
+<summary>詳細目次を開く</summary>
+<ul>
+<li><a href="#elemental-hunters">ELEMENTAL HUNTERS</a>
+<ul>
+<li><a href="#%E6%9C%80%E5%A4%A74%E4%BA%BA%E3%81%A7%E9%81%8A%E3%81%B9%E3%82%8B2d%E8%A6%96%E7%82%B9%E3%82%A2%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%B2%E3%83%BC%E3%83%A0">最大4人で遊べる2D視点アクションゲーム</a></li>
+<li><a href="#%E6%9C%80%E5%88%9D%E3%81%AB%E8%A6%8B%E3%81%A6%E3%81%BB%E3%81%97%E3%81%84%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88">最初に見てほしいポイント</a></li>
+<li><a href="#%E7%9B%AE%E6%AC%A1">目次</a>
+<ul>
+<li><a href="#%E3%82%88%E3%81%8F%E8%A6%8B%E3%81%A6%E3%81%BB%E3%81%97%E3%81%84%E9%A0%85%E7%9B%AE">よく見てほしい項目</a></li>
+</ul>
+</li>
+<li><a href="#0readme">0.README</a>
+<ul>
+<li><a href="#0-1pv">0-1.PV</a></li>
+<li><a href="#0-2%E3%82%B2%E3%83%BC%E3%83%A0%E7%B4%B9%E4%BB%8B%E3%82%B9%E3%83%A9%E3%82%A4%E3%83%89">0-2.ゲーム紹介スライド</a></li>
+<li><a href="#0-3%E6%8A%80%E8%A1%93%E7%B4%B9%E4%BB%8B%E3%82%B9%E3%83%A9%E3%82%A4%E3%83%89">0-3.技術紹介スライド</a></li>
+</ul>
+</li>
+<li><a href="#1%E3%83%97%E3%83%AD%E3%83%95%E3%82%A3%E3%83%BC%E3%83%AB">1.プロフィール</a>
+<ul>
+<li><a href="#%E5%BC%B7%E3%81%BF">強み</a></li>
+</ul>
+</li>
+<li><a href="#2%E4%BD%9C%E5%93%81%E6%A6%82%E8%A6%81">2.作品概要</a></li>
+<li><a href="#3%E3%83%81%E3%83%BC%E3%83%A0%E6%A7%8B%E6%88%90%E3%81%A8%E6%8B%85%E5%BD%93%E7%AE%87%E6%89%80">3.チーム構成と担当箇所</a>
+<ul>
+<li><a href="#3-0%E9%96%8B%E7%99%BA%E3%83%81%E3%83%BC%E3%83%A0%E6%A7%8B%E6%88%90">3-0.開発チーム構成</a></li>
+<li><a href="#3-1%E6%8B%85%E5%BD%93%E7%AE%87%E6%89%80">3-1.担当箇所</a>
+<ul>
+<li><a href="#%E3%83%97%E3%83%AC%E3%82%A4%E3%83%A4%E3%83%BC%E3%82%AD%E3%83%A3%E3%83%A9%E3%82%AF%E3%82%BF%E3%83%BC%E5%AE%9F%E8%A3%85">プレイヤー・キャラクター実装</a></li>
+<li><a href="#%E3%82%A2%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3%E7%8A%B6%E6%85%8B%E7%AE%A1%E7%90%86">アクション・状態管理</a></li>
+<li><a href="#npc%E5%85%A5%E5%8A%9B%E5%87%A6%E7%90%86">NPC・入力処理</a></li>
+<li><a href="#%E5%BC%BE%E9%AD%94%E6%B3%95%E7%94%9F%E6%88%90%E5%87%A6%E7%90%86">弾・魔法・生成処理</a></li>
+<li><a href="#%E3%83%A2%E3%83%87%E3%83%AB%E3%82%A2%E3%83%8B%E3%83%A1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E6%BC%94%E5%87%BA%E7%AE%A1%E7%90%86">モデル・アニメーション・演出管理</a></li>
+<li><a href="#%E3%82%B9%E3%83%86%E3%83%BC%E3%82%B8%E8%83%8C%E6%99%AF">ステージ・背景</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#4%E3%82%B2%E3%83%BC%E3%83%A0%E3%81%AE%E7%89%B9%E5%BE%B4">4.ゲームの特徴</a>
+<ul>
+<li><a href="#4-1%E3%81%A9%E3%82%93%E3%81%AA%E3%82%B2%E3%83%BC%E3%83%A0%E3%81%8B">4-1.どんなゲームか</a></li>
+<li><a href="#4-2%E4%BD%95%E3%81%8C%E9%9D%A2%E7%99%BD%E3%81%84%E3%81%8B">4-2.何が面白いか</a></li>
+</ul>
+</li>
+<li><a href="#5%E6%93%8D%E4%BD%9C%E6%96%B9%E6%B3%95">5.操作方法</a>
+<ul>
+<li><a href="#5-1%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C">5-1.基本操作</a></li>
+<li><a href="#5-2%E6%94%BB%E6%92%83%E6%96%B9%E6%B3%95">5-2.攻撃方法</a></li>
+<li><a href="#5-3%E5%BE%A9%E6%B4%BB%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0">5-3.復活システム</a></li>
+</ul>
+</li>
+<li><a href="#6%E3%82%AD%E3%83%A3%E3%83%A9%E3%82%AF%E3%82%BF%E3%83%BC%E7%B4%B9%E4%BB%8B">6.キャラクター紹介</a>
+<ul>
+<li><a href="#6-1%E3%82%AD%E3%83%A3%E3%83%A9%E3%82%AF%E3%82%BF%E3%83%BC%E7%B4%B9%E4%BB%8Bpv">6-1.キャラクター紹介PV</a></li>
+<li><a href="#6-2swordcharacter">6-2.SwordCharacter</a></li>
+<li><a href="#6-3hammercharacter">6-3.HammerCharacter</a></li>
+<li><a href="#6-4wandcharacter">6-4.WandCharacter</a></li>
+<li><a href="#6-5twinguncharacter">6-5.TwinGunCharacter</a></li>
+</ul>
+</li>
+<li><a href="#7%E6%8A%80%E8%A1%93%E7%9A%84%E5%B7%A5%E5%A4%AB%E7%82%B9">7.技術的工夫点</a>
+<ul>
+<li><a href="#7-0%E6%8A%80%E8%A1%93%E7%9A%84%E3%81%AB%E7%89%B9%E3%81%AB%E8%A6%8B%E3%81%A6%E3%81%BB%E3%81%97%E3%81%84%E7%82%B9">7-0.技術的に特に見てほしい点</a></li>
+<li><a href="#%E3%81%93%E3%81%A0%E3%82%8F%E3%81%A3%E3%81%9F%E7%AE%87%E6%89%80">こだわった箇所</a></li>
+<li><a href="#7-1%E3%82%AF%E3%83%A9%E3%82%B9%E8%A8%AD%E8%A8%88%E3%81%AE%E8%A6%8B%E7%9B%B4%E3%81%97%E3%82%AD%E3%83%A3%E3%83%A9%E3%82%AF%E3%82%BF%E3%83%BC%E3%81%AE%E5%85%B1%E9%80%9A%E5%8C%96">7-1.クラス設計の見直し（キャラクターの共通化）</a>
+<ul>
+<li><a href="#%E8%AA%B2%E9%A1%8C">課題</a></li>
+<li><a href="#%E3%81%A9%E3%81%86%E5%B7%A5%E5%A4%AB%E3%81%97%E3%81%9F%E3%81%8B">どう工夫したか</a></li>
+<li><a href="#%E7%B5%90%E6%9E%9C">結果</a></li>
+</ul>
+</li>
+<li><a href="#7-2%E9%9A%8E%E5%B1%A4%E5%9E%8B%E3%82%B9%E3%83%86%E3%83%BC%E3%83%88%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3%E3%81%AE%E5%B0%8E%E5%85%A5%E3%81%AB%E3%82%88%E3%82%8B%E3%82%A2%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3%E7%AE%A1%E7%90%86">7-2.階層型ステートパターンの導入によるアクション管理</a>
+<ul>
+<li><a href="#%E8%AA%B2%E9%A1%8C-1">課題</a></li>
+<li><a href="#%E3%81%A9%E3%81%86%E5%B7%A5%E5%A4%AB%E3%81%97%E3%81%9F%E3%81%8B-1">どう工夫したか</a></li>
+<li><a href="#%E7%B5%90%E6%9E%9C-1">結果</a></li>
+</ul>
+</li>
+<li><a href="#7-3%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E3%81%AB%E3%82%88%E3%82%8B%E3%82%B3%E3%83%B3%E3%83%9C--%E6%94%BB%E6%92%83%E3%82%B9%E3%83%86%E3%83%BC%E3%82%BF%E3%82%B9%E7%AE%A1%E7%90%86">7-3.テーブルによるコンボ / 攻撃ステータス管理</a>
+<ul>
+<li><a href="#%E8%AA%B2%E9%A1%8C-2">課題</a></li>
+<li><a href="#%E3%81%A9%E3%81%86%E5%B7%A5%E5%A4%AB%E3%81%97%E3%81%9F%E3%81%8B-2">どう工夫したか</a></li>
+<li><a href="#%E7%B5%90%E6%9E%9C-2">結果</a></li>
+</ul>
+</li>
+<li><a href="#7-4%E6%97%A7%E5%85%A5%E5%8A%9B%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0-vs-%E6%96%B0%E5%85%A5%E5%8A%9B%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0">7-4.旧入力システム VS 新入力システム</a>
+<ul>
+<li><a href="#adapter%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3%E3%81%AB%E3%82%88%E3%82%8B%E5%85%A5%E5%8A%9B%E8%B2%AC%E5%8B%99%E3%81%AE%E5%88%86%E9%9B%A2">Adapterパターンによる入力責務の分離</a></li>
+<li><a href="#%E8%AA%B2%E9%A1%8C-3">課題</a></li>
+<li><a href="#%E3%81%A9%E3%81%86%E5%B7%A5%E5%A4%AB%E3%81%97%E3%81%9F%E3%81%8B-3">どう工夫したか</a></li>
+<li><a href="#%E7%B5%90%E6%9E%9C-3">結果</a></li>
+</ul>
+</li>
+<li><a href="#7-5%E7%99%BA%E5%B0%84%E3%83%AA%E3%82%AF%E3%82%A8%E3%82%B9%E3%83%88--factory%E3%81%AB%E3%82%88%E3%82%8B%E7%94%9F%E6%88%90%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%AE%E6%A7%8B%E7%AF%89">7-5.発射リクエスト / Factoryによる生成システムの構築</a>
+<ul>
+<li><a href="#%E8%AA%B2%E9%A1%8C-4">課題</a></li>
+<li><a href="#%E3%81%A9%E3%81%86%E5%B7%A5%E5%A4%AB%E3%81%97%E3%81%9F%E3%81%8B-4">どう工夫したか</a></li>
+<li><a href="#%E7%B5%90%E6%9E%9C-4">結果</a></li>
+</ul>
+</li>
+<li><a href="#7-6%E3%83%87%E3%83%BC%E3%82%BF%E9%A7%86%E5%8B%95%E3%81%AB%E3%82%88%E3%82%8B%E3%82%B9%E3%83%86%E3%83%BC%E3%82%B8%E8%AA%AD%E3%81%BF%E8%BE%BC%E3%81%BF%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%AE%E6%A7%8B%E7%AF%89">7-6.データ駆動によるステージ読み込みシステムの構築</a>
+<ul>
+<li><a href="#%E8%AA%B2%E9%A1%8C-5">課題</a></li>
+<li><a href="#%E3%81%A9%E3%81%86%E5%B7%A5%E5%A4%AB%E3%81%97%E3%81%9F%E3%81%8B-5">どう工夫したか</a></li>
+<li><a href="#%E7%B5%90%E6%9E%9C-5">結果</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#8%E4%BB%8A%E5%BE%8C%E3%81%AE%E5%B1%95%E6%9C%9B">8.今後の展望</a></li>
+<li><a href="#9%E3%83%AA%E3%83%B3%E3%82%AF%E9%9B%86">9.リンク集</a></li>
+</ul>
+</li>
+</ul>
+</details>
+<hr>
+<h2 id="0readme">0.README</h2>
+<h3 id="0-1pv"><a id="part0-1"></a>0-1.PV</h3>
+<p><video src="./Video/ToCutForward.mp4" controls width="100%"></video></p>
+<p>ゲームの流れ、プレイアブルキャラクターの紹介、ボス戦、戦闘の流れを短時間で確認できる紹介動画です。</p>
+<hr>
+<h3 id="0-2ゲーム紹介スライド"><a id="part0-2"></a>0-2.ゲーム紹介スライド</h3>
+<a href="Image/ゲーム説明スライド_サムネ.png" target="_blank">
+  <img src="Image/ゲーム説明スライド_サムネ.png" width="100%" alt="ゲーム紹介スライドのサムネイル">
+</a>
+<p><a href="Slide/ゲーム概要スライド.pptx" target="_blank">PowerPoint版はこちら</a></p>
+<p><a href="PDF/ゲーム概要スライド.pdf" target="_blank">PDF版はこちら</a></p>
+<p>ゲームの流れをまとめたスライドです。</p>
+<hr>
+<h3 id="0-3技術紹介スライド"><a id="part0-3"></a>0-3.技術紹介スライド</h3>
+<a href="Image/技術紹介スライド_サムネ.png" target="_blank">
+  <img src="Image/技術紹介スライド_サムネ.png" width="100%" alt="技術紹介スライドのサムネイル">
+</a>
+<p><a href="Slide/技術紹介スライド.pptx" target="_blank">PowerPoint版はこちら</a></p>
+<p><a href="PDF/技術紹介スライド.pdf" target="_blank">PDF版はこちら</a></p>
+<p>実装技術を簡易的に説明したスライドです。</p>
+<hr>
+<h2 id="1プロフィール">1.プロフィール</h2>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>氏名</td>
+<td>山口 隼（ヤマグチ ハヤト）</td>
+</tr>
+<tr>
+<td>所属</td>
+<td>河原電子ビジネス専門学校 ゲームクリエイター科 27卒</td>
+</tr>
+<tr>
+<td>希望職種</td>
+<td>ゲームプログラマ</td>
+</tr>
+<tr>
+<td>Email</td>
+<td>CA01244029@st.kawahara.ac.jp</td>
+</tr>
+</tbody>
+</table>
+<h3 id="強み">強み</h3>
+<p>ゲームにおける操作感やアクションの仕組みを分析し、C++で設計・実装することを強みとしています。</p>
+<p>本ポートフォリオでは、チーム制作で担当したプレイヤーアクション、NPC制御、キャラクターごとの攻撃処理、入力処理、弾・魔法の生成処理を中心にまとめています。</p>
+<p>また、課題に対して「どうクラスを分ければ保守性が上がるか」「どう処理を分離すれば調整しやすくなるか」を考えながら、Stateパターン、Adapterパターン、Factoryパターンを用いて実装しました。</p>
+<hr>
+<h2 id="2作品概要">2.作品概要</h2>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>作品名</td>
+<td>ELEMENTAL HUNTERS</td>
+</tr>
+<tr>
+<td>ジャンル</td>
+<td>3Dモデルを用いた2D視点アクションゲーム</td>
+</tr>
+<tr>
+<td>制作形式</td>
+<td>チーム制作</td>
+</tr>
+<tr>
+<td>制作人数</td>
+<td>3人</td>
+</tr>
+<tr>
+<td>プレイ人数</td>
+<td>1〜4人</td>
+</tr>
+<tr>
+<td>使用言語</td>
+<td>C++14</td>
+</tr>
+<tr>
+<td>使用技術</td>
+<td>DirectX</td>
+</tr>
+<tr>
+<td>開発環境</td>
+<td>Visual Studio 2022 / 学内エンジン</td>
+</tr>
+<tr>
+<td>バージョン管理</td>
+<td>GitHub / Forkクライアント</td>
+</tr>
+<tr>
+<td>連絡手段</td>
+<td>Teams</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="3チーム構成と担当箇所">3.チーム構成と担当箇所</h2>
+<h3 id="3-0開発チーム構成"><a id="part3-0"></a>3-0.開発チーム構成</h3>
+<table>
+<thead>
+<tr>
+<th>担当</th>
+<th style="text-align:right">人数</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>アウトゲーム全般</td>
+<td style="text-align:right">1人</td>
+<td>UI / 演出 / ゲームフロー全体の管理</td>
+</tr>
+<tr>
+<td>インゲーム</td>
+<td style="text-align:right">2人</td>
+<td>Bossキャラクター / NPC / Player / ステージ制御</td>
+</tr>
+</tbody>
+</table>
+<p>計3人で制作しました。</p>
+<hr>
+<h3 id="3-1担当箇所"><a id="part3-1"></a>3-1.担当箇所</h3>
+<a href="Image/ScopeResponsibility.png" target="_blank">
+  <img src="Image/ScopeResponsibility.png" width="100%" alt="担当範囲サマリー">
+</a>
+<p>上図は、担当した操作入力・NPC制御・攻撃処理・弾生成処理の関係をまとめたものです。
+個別の技術説明に入る前に、担当範囲の全体像を把握できるようにしています。</p>
+<h4 id="プレイヤーキャラクター実装">プレイヤー・キャラクター実装</h4>
+<ul>
+<li>プレイヤーキャラクターの基本動作実装</li>
+<li>Sword / Hammer / Wand / TwinGunCharacter のアクション実装</li>
+<li>キャラクターごとの攻撃処理、チャージ攻撃、空中攻撃、連続攻撃の実装</li>
+<li>ガード機能、復活システム、ヒットストップの実装</li>
+</ul>
+<h4 id="アクション状態管理">アクション・状態管理</h4>
+<ul>
+<li>Player用ステートマシンの実装</li>
+<li>Idle / Run / Jump / Attack / Hit / Death などの状態管理</li>
+<li>階層型ステートによる攻撃アクション管理</li>
+<li>コンボルート、攻撃パラメータ、ダメージ倍率の管理</li>
+</ul>
+<h4 id="npc入力処理">NPC・入力処理</h4>
+<ul>
+<li>NPCキャラクターの行動ロジック実装</li>
+<li>ターゲットへの接近、武器ごとの攻撃、味方救出行動の実装</li>
+<li>GamePadInputAdapter / VirtualInputAdapter による入力処理の分離</li>
+<li>PlayerとNPCが同じアクション処理を使える入力経路の構築</li>
+</ul>
+<h4 id="弾魔法生成処理">弾・魔法・生成処理</h4>
+<ul>
+<li>WandCharacter の魔法・ミサイル攻撃実装</li>
+<li>TwinGunCharacter の弾丸攻撃実装</li>
+<li>BulletFireRequest / BulletFactory による弾生成処理の分離</li>
+<li>Magic / Gun関連処理のFactory化</li>
+</ul>
+<h4 id="モデルアニメーション演出管理">モデル・アニメーション・演出管理</h4>
+<ul>
+<li>モデル管理クラスの実装</li>
+<li>基本動作用アニメーション、武器用アニメーションの管理</li>
+<li>BGM / SE / Effect管理クラスの実装</li>
+<li>ダメージ数表示、攻撃時エフェクト、復活演出などの実装</li>
+</ul>
+<h4 id="ステージ背景">ステージ・背景</h4>
+<ul>
+<li>ステージモデルの追加</li>
+</ul>
+<hr>
+<h2 id="4ゲームの特徴">4.ゲームの特徴</h2>
+<h3 id="4-1どんなゲームか"><a id="part4-1"></a>4-1.どんなゲームか</h3>
+<a href="Image/GameFlow.png" target="_blank">
+  <img src="Image/GameFlow.png" width="100%" alt="ゲームの流れ">
+</a>
+<p>ゲームサイクルの流れをまとめています。</p>
+<p>ELEMENTAL HUNTERSは、最大4人でボス討伐に挑む、3Dモデルを用いた2D視点アクションゲームです。</p>
+<p>プレイヤーは、剣・ハンマー・杖・銃など性能の異なるキャラクターを操作し、制限時間内にボスの撃破を目指します。</p>
+<p>ソロプレイ時はNPCと共闘できるため、1人でも複数キャラクターで戦っているような体験を目指しました。</p>
+<table>
+<thead>
+<tr>
+<th>要素</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>目的</td>
+<td>制限時間内にボスを討伐する</td>
+</tr>
+<tr>
+<td>遊び方</td>
+<td>キャラクターごとの攻撃を使い分けて戦う</td>
+</tr>
+<tr>
+<td>特徴</td>
+<td>NPCと共闘できる</td>
+</tr>
+<tr>
+<td>プレイ感</td>
+<td>スピーディーなボス討伐アクション</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="4-2何が面白いか"><a id="part4-2"></a>4-2.何が面白いか</h3>
+<p>本作品の面白さは、武器ごとに異なる攻撃アクションを使い分けながら、ボスを攻略することです。</p>
+<p>Bボタンの単発入力、連打、長押し、ジャンプ中入力、ダッシュ中入力によって攻撃が変化します。</p>
+<p>そのため、同じキャラクターでも状況に応じて攻撃方法を選びながら戦えます。</p>
+<p>また、NPCと共闘することで、ソロプレイでもパーティで戦っている感覚を出しています。</p>
+<hr>
+<h2 id="5操作方法">5.操作方法</h2>
+<h3 id="5-1基本操作"><a id="part5-1"></a>5-1.基本操作</h3>
+<a href="Image/操作説明.png" target="_blank">
+  <img src="Image/操作説明.png" width="100%" alt="基本操作の説明">
+</a>
+<p>移動 / ジャンプ / 攻撃などの基本動作をまとめています。<br>
+また、攻撃は同じBアクションでも入力状態によって異なるアクションができます。<br>
+※5-2を参照</p>
+<hr>
+<h3 id="5-2攻撃方法"><a id="part5-2"></a>5-2.攻撃方法</h3>
+<a href="Image/AttackInputFlow_clean.png" target="_blank">
+  <img src="Image/AttackInputFlow_clean.png" width="100%" alt="入力による攻撃アクション変化">
+</a>
+<p>Bボタンの単発入力、連打、長押し、ジャンプ中入力、ダッシュ中入力などにより、通常攻撃、連続攻撃、チャージ攻撃、空中攻撃、移動攻撃へ派生します。これにより、プレイヤーは状況に応じて攻撃方法を選びながら戦えます。</p>
+<a href="Image/Action Table.png" target="_blank">
+  <img src="Image/Action Table.png" width="100%" alt="攻撃方法の一覧">
+</a>
+<p>本作品では、同じBボタンでも入力状態によって攻撃内容が変化します。
+※Combo 1〜3は固有の技名ではなく、武器種や状態に応じて派生する共通コンボアクションとして表記しています。</p>
+<hr>
+<h3 id="5-3復活システム"><a id="part5-3"></a>5-3.復活システム</h3>
+<p>他キャラクターのHPが0になった際、近くでYボタンを押すことで数秒間かけて復活させることができます。<br>
+復活中は無防備になってしまうため、タイミングが重要になります。</p>
+<p><video src="./Video/ReboneSystem.mp4" controls width="100%"></video></p>
+<hr>
+<h2 id="6キャラクター紹介">6.キャラクター紹介</h2>
+<h3 id="6-1キャラクター紹介pv"><a id="part6-1"></a>6-1.キャラクター紹介PV</h3>
+<p><video src="./Video/CharacterPV.mp4" controls width="100%"></video></p>
+<p>各キャラクターの攻撃アクションや役割を確認できる紹介動画です。</p>
+<a href="Image/CharacterComparison.png" target="_blank">
+  <img src="Image/CharacterComparison.png" width="100%" alt="キャラクター比較">
+</a>
+<p>4種類のプレイアブルキャラクターについて、武器ごとの役割や攻撃スタイルの違いをまとめています。</p>
+<hr>
+<h3 id="6-2swordcharacter"><a id="part6-2"></a>6-2.SwordCharacter</h3>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>役割</td>
+<td>近距離で安定して攻撃できる標準キャラクター</td>
+</tr>
+<tr>
+<td>特徴</td>
+<td>通常攻撃、チャージ攻撃、空中攻撃を使い分けて戦う</td>
+</tr>
+<tr>
+<td>担当した実装</td>
+<td>攻撃State / コンボ遷移 / 当たり判定 / ダメージ計算</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="6-3hammercharacter"><a id="part6-3"></a>6-3.HammerCharacter</h3>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>役割</td>
+<td>高火力の近距離キャラクター</td>
+</tr>
+<tr>
+<td>特徴</td>
+<td>攻撃の重さと威力を重視し、攻撃タイミングが重要</td>
+</tr>
+<tr>
+<td>担当した実装</td>
+<td>攻撃State / チャージ攻撃 / 当たり判定 / ダメージ計算</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="6-4wandcharacter"><a id="part6-4"></a>6-4.WandCharacter</h3>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>役割</td>
+<td>魔法や遠距離攻撃を扱うキャラクター</td>
+</tr>
+<tr>
+<td>特徴</td>
+<td>攻撃ごとに異なる魔法・ミサイルを使い分けて戦う</td>
+</tr>
+<tr>
+<td>担当した実装</td>
+<td>魔法攻撃 / ミサイル生成 / 攻撃パラメータ管理</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="6-5twinguncharacter"><a id="part6-5"></a>6-5.TwinGunCharacter</h3>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>役割</td>
+<td>遠距離から継続的に攻撃するキャラクター</td>
+</tr>
+<tr>
+<td>特徴</td>
+<td>弾丸の種類や発射タイミングを切り替えて戦う</td>
+</tr>
+<tr>
+<td>担当した実装</td>
+<td>BulletFireRequest / BulletFactory / 弾丸パラメータ管理</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="7技術的工夫点">7.技術的工夫点</h2>
+<h3 id="7-0技術的に特に見てほしい点"><a id="part7-0"></a>7-0.技術的に特に見てほしい点</h3>
+<table>
+<thead>
+<tr>
+<th>技術項目</th>
+<th>見てほしい理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>キャラクター共通基盤</td>
+<td>キャラクターごとの重複処理を整理し、武器ごとの差分を分離したため</td>
+</tr>
+<tr>
+<td>階層型State + コンボテーブル</td>
+<td>アクション追加や攻撃調整をしやすい構成にしたため</td>
+</tr>
+<tr>
+<td>入力Adapter / NPC制御</td>
+<td>物理入力と仮想入力を共通化し、PlayerとNPCの挙動差を抑えたため</td>
+</tr>
+<tr>
+<td>BulletFireRequest / Factory</td>
+<td>攻撃Stateから弾生成処理を分離し、修正箇所を限定したため</td>
+</tr>
+<tr>
+<td>モデル・アニメーション管理</td>
+<td>キャラクターごとのモデルやアニメーションを共通管理しやすくしたため</td>
+</tr>
+<tr>
+<td>BGM / SE / Effect管理</td>
+<td>サウンドやエフェクトの登録・再生処理を整理し、演出を追加しやすくしたため</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="こだわった箇所">こだわった箇所</h3>
+<a href="Image/CommitmentPoints_final.png" target="_blank">
+  <img src="Image/CommitmentPoints_final.png" width="100%" alt="こだわった箇所の説明">
+</a>
+<hr>
+<h3 id="7-1クラス設計の見直しキャラクターの共通化"><a id="part7-1"></a>7-1.クラス設計の見直し（キャラクターの共通化）</h3>
+<h4 id="課題">課題</h4>
+<p>当初はキャラクターごとに移動、HP管理、アニメーション、攻撃処理を個別に実装していたため、同じような処理が複数のクラスに分散し、修正箇所の視認性が悪い状態でした。</p>
+<h4 id="どう工夫したか">どう工夫したか</h4>
+<p>キャラクターの基底として「ICharacter」を用意し、HPや攻撃ステータス、モデル管理など、実体を持つキャラクターに共通する処理をまとめました。<br>
+さらに、プレイヤーとして操作可能なキャラクターは「Player」を中心にし、武器ごとの差分は「IWeaponCharacter」から派生するSwordCharacter、HammerCharacter、WandCharacter、TwinGunCharacterに分けました。</p>
+<a href="Image/CharacterStructure_redone.png" target="_blank">
+  <img src="Image/CharacterStructure_redone.png" width="100%" alt="キャラクター構造の説明図">
+</a>
+<h4 id="結果">結果</h4>
+<p>キャラクター本体の共通処理と、武器ごとの固有処理を分けられたため、武器追加時に既存のPlayer処理を大きく変更せずに拡張できる構成になりました。</p>
+<hr>
+<h3 id="7-2階層型ステートパターンの導入によるアクション管理"><a id="part7-2"></a>7-2.階層型ステートパターンの導入によるアクション管理</h3>
+<h4 id="課題-1">課題</h4>
+<p>アクションを作る際、コンボの派生条件や技ごとのダメージ設定を全てコード内にif文で書くと、技が増えるたびにコードが複雑になり、調整も困難でした。</p>
+<a href="Image/PlayerStateStructure.png" target="_blank">
+  <img src="Image/PlayerStateStructure.png" width="100%" alt="階層型ステートパターンの構成図">
+</a>
+<h4 id="どう工夫したか-1">どう工夫したか</h4>
+<p>攻撃の土台となる「PlayerAttackBaseState」を作り、各攻撃技がそれを引き継ぐ階層型ステートを実装しました。<br>
+コンボルートやダメージ倍率は構造体のテーブルとして独立させ、ロジックから切り離しました。<br>
+また、テーブルの中から今の技に合うデータを探し出し、適用するように実装しています。</p>
+<h4 id="結果-1">結果</h4>
+<p>コードを直接書き換えなくても、テーブルの数値を変更するだけで技の強さやコンボのつながりを変えられるようになり、拡張性が向上しました。</p>
+<hr>
+<h3 id="7-3テーブルによるコンボ--攻撃ステータス管理"><a id="part7-3"></a>7-3.テーブルによるコンボ / 攻撃ステータス管理</h3>
+<h4 id="課題-2">課題</h4>
+<p>攻撃ごとの派生条件やダメージ倍率をステートクラス内に直接書くと、技が増えるたびに条件分岐が増え、調整しづらくなる問題がありました。</p>
+<h4 id="どう工夫したか-2">どう工夫したか</h4>
+<p>コンボの派生条件は「ComboRouteTable」、攻撃ごとのダメージ倍率やクリティカル補正は「AttackParameterTable」に分離しました。<br>
+ステート側では、現在の状態IDと入力条件をもとにテーブルを検索し、次の状態や攻撃パラメータを取得する形にしています。</p>
+<h4 id="結果-2">結果</h4>
+<p>攻撃ステート側の処理を増やしすぎず、コンボルートやダメージ倍率の調整をテーブル側で行えるようになりました。<br>
+これにより、アクションの調整作業とロジックの実装を分離でき、保守性と調整効率を高めることができました。</p>
+<hr>
+<h3 id="7-4旧入力システム-vs-新入力システム"><a id="part7-4"></a>7-4.旧入力システム VS 新入力システム</h3>
+<h4 id="adapterパターンによる入力責務の分離">Adapterパターンによる入力責務の分離</h4>
+<h4 id="課題-3">課題</h4>
+<p>旧設計では、PlayerInputクラス内で物理コントローラー入力とNPC用の仮想入力を分岐して処理していました。<br>
+そのため、PlayerInputが「入力元の判定」と「ゲームアクションへの変換」の両方を担当しており、操作キャラクター切り替えやNPC制御を拡張しづらい構造になっていました。</p>
+<a href="Image/InputSystemBeforeAfter_redone.png" target="_blank">
+  <img src="Image/InputSystemBeforeAfter_redone.png" width="100%" alt="入力システムのBefore After">
+</a>
+<p>旧設計では、PlayerInputが物理入力とNPC入力の分岐を直接持っていました。
+改修後はAdapterPatternを導入し、PlayerInputは入力元を意識せず、ゲームアクションへの変換に集中できる構成にしました。</p>
+<a href="Image/Old Input System VS New Input System.png" target="_blank">
+  <img src="Image/Old Input System VS New Input System.png" width="100%" alt="旧入力システムと新入力システムの比較図">
+</a>
+<h4 id="どう工夫したか-3">どう工夫したか</h4>
+<p>AdapterPatternを導入し、物理コントローラークラスと仮想コントローラークラスに分離しました。<br>
+PlayerInputは入力元を直接判定せず、親クラス経由で取得した入力をIsJump、IsAttack、IsChargeAttackなどのゲームアクションへ変換する役割に限定しました。<br>
+また、PlayerControllerHubを用意し、操作中のキャラクターにはGamePadInputAdapter、非操作キャラクターにはVirtualInputAdapterを割り当てることで、キャラクターを再生成せずに操作対象を切り替えられる構成にしました。</p>
+<a href="Image/NPCVirtualInputStructure.png" target="_blank">
+  <img src="Image/NPCVirtualInputStructure.png" width="100%" alt="NPCの仮想入力構成図">
+</a>
+<h4 id="結果-3">結果</h4>
+<p>PlayerInputから入力元判定のif分岐を削除でき、物理入力とNPC入力を同じ経路で扱えるようになりました。<br>
+NPCはAIが仮想入力を送ることでPlayerと同じアクション処理を利用できるため、プレイヤー操作キャラクターとNPCキャラクターの挙動差を抑えられました。<br>
+また、共通の入力経路を使うことで、AI側の判断処理を独立して調整できるようになりました。</p>
+<hr>
+<h3 id="7-5発射リクエスト--factoryによる生成システムの構築"><a id="part7-5"></a>7-5.発射リクエスト / Factoryによる生成システムの構築</h3>
+<h4 id="課題-4">課題</h4>
+<p>銃キャラクターの攻撃を実装する際、各攻撃Stateが弾丸の生成、モデル情報、速度、寿命、発射位置、エフェクト通知まで直接持ってしまうと、ステートクラスが肥大化してしまう問題がありました。</p>
+<a href="Image/FactoryPattern.png" target="_blank">
+  <img src="Image/FactoryPattern.png" width="100%" alt="弾生成処理のBefore After">
+</a>
+<p>以前は、攻撃Stateが弾の種類や生成情報を直接持っていたため、処理が肥大化しやすい状態でしたが、
+改修後は、攻撃StateからBulletFireRequestを渡し、Factory側で弾生成を行うことで、責務を分離しました。</p>
+<h4 id="どう工夫したか-4">どう工夫したか</h4>
+<p>攻撃ステートからは「BulletFireRequest」として弾の種類・生成基準位置・発射方向だけを「GunShooter」へ渡す形にしました。<br>
+「GunShooter」は「BulletFactory」に弾丸生成を依頼し、「BulletFactory」側で「BulletType」に応じた弾丸クラスを生成します。<br>
+また、弾丸ごとの速度、寿命、生成位置補正は「BulletParameterTable」に分離し、モデル情報は「BulletModelRegister」から取得するようにしました。<br>
+発射時のエフェクトなどは「IBulletFireListener」へ通知することで、弾丸生成処理と演出処理を分けています。</p>
+<a href="Image/BulletGenerationSystemStructure.png" target="_blank">
+  <img src="Image/BulletGenerationSystemStructure.png" width="100%" alt="弾丸生成システムの構成図">
+</a>
+<h4 id="結果-4">結果</h4>
+<p>攻撃ステートは発射タイミングと発射する弾丸の種類のみを扱うだけとなり、生成処理やパラメータ管理を別クラスに分離できました。<br>
+その結果、弾の種類追加や速度調整を行う際の修正箇所を限定しやすくなりました。</p>
+<hr>
+<h3 id="7-6データ駆動によるステージ読み込みシステムの構築"><a id="part7-6"></a>7-6.データ駆動によるステージ読み込みシステムの構築</h3>
+<h4 id="課題-5">課題</h4>
+<p>既存の設計ではステージごとにクラスを作成しており、ステージが増えるたびに同じような処理が増え、コピーコードが量産されていました。</p>
+<h4 id="どう工夫したか-5">どう工夫したか</h4>
+<p>ステージの情報を描画、座標、モデルパスなどの構成データに分離しました。<br>
+ステージごとの固有データは構造体にまとめ、LoadStageDataクラスが識別子を受け取るだけで、そのステージを自動で読み込めるように設計しました。</p>
+<h4 id="結果-5">結果</h4>
+<p>ステージが増えてもクラス数は増えず、ステージデータの登録のみで運用できる形になり、開発効率が向上しました。</p>
+<hr>
+<h2 id="8今後の展望">8.今後の展望</h2>
+<ul>
+<li>
+<p>リファクタリング</p>
+<ul>
+<li>階層型ステートパターンにイテレーターパターンを導入予定です。</li>
+</ul>
+</li>
+<li>
+<p>ステージの追加</p>
+<ul>
+<li>ステージを2〜3種類追加予定です。</li>
+</ul>
+</li>
+<li>
+<p>Ultimate Abilityの実装</p>
+<ul>
+<li>ボスのHPの減少割合に応じてコレクションアイテムを出現させ、全て集めるとボスに大ダメージを与えられるように実装予定です。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="9リンク集">9.リンク集</h2>
+<ul>
+<li>Youtube: <a href="https://www.youtube.com/@%E5%B1%B1%E5%8F%A3%E9%9A%BC-kawahara">こちらからアクセスできます</a></li>
+<li>Googleドライブ: <a href="https://drive.google.com/drive/folders/1uRL0AiCKYP2HvznbBXS_wLJY3bZnr4bU?usp=drive_link">こちらからアクセスできます</a></li>
+<li>GitHub: <a href="https://github.com/TanimotoYuuki/Project-EH">こちらからアクセスできます</a></li>
+<li>過去作品（個人制作）: <a href="https://github.com/YamaguchiHayato/Dimensional-Flip">こちらからアクセスできます</a></li>
+</ul>
+
+</body>
+</html>
