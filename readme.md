@@ -54,9 +54,10 @@
 
 ## 0.README
 - ## <a id = "part0-1"></a>0-1.PV
-  <a href = "Image/PV.mp4" target = "100%">
-  <video src="./Video/ToCutForward.mp4" controls width="100%"></video>
-  </a>
+     <a href = "Image/PV.mp4" target = "100%">
+     <video src="./Video/ToCutForward.mp4" controls width="100%"></video>
+     </a>
+   
 
   ## ゲームの流れ、プレイアブルキャラの紹介、ボス戦、戦闘の流れを短時間で確認できる紹介動画です。
 ****
@@ -65,25 +66,22 @@
   <a href="Image/ゲーム説明スライド_サムネ.png" target="_blank">
   <img src="Image/ゲーム説明スライド_サムネ.png" width="100%">
   </a>
-<br>
+  
   <a href="Slide/ゲーム概要スライド.pptx" target="_blank">PowerPoint版はこちら</a>
 
   <a href="PDF/ゲーム概要スライド.pdf" target= "_blank">PDF版はこちら</a>
-</p>
 
 ## ゲームの流れをまとめたスライドです。
 ---
 
-- ## <a id = "part0-3">
-
-## 技術紹介スライド
+- ## <a id = "part0-3"></a>0-3.技術紹介スライド
    <a href="Slide/技術紹介スライド.png" target="_blank">
    <img src="Image/技術紹介スライド_サムネ.png" width="100%">
    </a>
   <a href="Slide/技術紹介スライド.pptx" target="_blank">PowerPoint版はこちら</a>
   
   <a href="PDF/技術紹介スライド.pdf" target= "_blank"> PDF版はこちら</a>
-  
+
   ## 実装技術を簡易的に説明したスライドです。
 ****
 
@@ -157,7 +155,7 @@
   - ## <a id = "part5-1"></a>5-1.基本操作
   <a href = "Image/操作説明.png" target = "_blank">
   <img src = "Image/操作説明.png" width = "100%">
-
+  </a>
   ## &emsp; 移動/ジャンプ/攻撃などの基本動作をまとめています。
   ## &emsp; また、攻撃は同じBアクションでも入力状態によって異なるアクションができます。
   ## &emsp; ※5-2を参照
