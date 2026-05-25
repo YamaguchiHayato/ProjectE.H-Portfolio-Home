@@ -1,51 +1,529 @@
-body {
-  font-family: "Georgia", "Times New Roman", serif;
-  
-  /* ▼ 画像の上に「半透明の黒い幕」を重ねて、文字を読みやすくする */
-  background-image: 
-    linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-    url("Image/Background.jpg");
-  
+/* =========================================================
+   ELEMENTAL HUNTERS Portfolio Style
+   =========================================================
+   入っている機能：
+   - どのデバイスでも本文レイアウト幅を固定
+   - スマホでは縮小せず横スクロールで表示
+   - 表の崩れ防止
+   - 表 / 画像 / 動画は中央揃え
+   - 文字は左揃え
+   - 背景画像に暗幕を重ねて文字を読みやすくする
+   - GitHub Pages / README向けの画像・動画表示調整
+   ========================================================= */
+
+
+/* =========================================================
+   全体背景・レイアウト固定
+   ========================================================= */
+
+html {
+  /* 背景画像 + 暗幕 */
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.72)),
+    url("Image/BackGround/BackGround.png");
+
   background-size: cover;
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
-  
-  /* ▼ 基本の文字色（読みやすい明るい白） */
-  color: #f0f8ff; 
-  
-  padding: 2rem;
+
+  /* どのデバイスでもレイアウト幅を固定 */
+  min-width: 1120px;
+
+  /* 画面が狭い場合は横スクロール */
+  overflow-x: auto;
+}
+
+body {
+  width: 1120px;
+  max-width: 1120px;
+  min-width: 1120px;
+
+  margin: 0 auto;
+  padding: 2rem 2.5rem;
+  box-sizing: border-box;
+
+  font-family: "Georgia", "Times New Roman", serif;
+  color: #f0f8ff;
   line-height: 1.9;
-  
-  /* 文字の影（黒く縁取ってさらに読みやすく） */
-  text-shadow: 
-    2px 2px 0px #000000, 
+
+  /* 文字は基本左揃え */
+  text-align: left;
+
+  /* 本文エリアを読みやすくする半透明背景 */
+  background: rgba(0, 0, 0, 0.48);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.55);
+
+  /* 本文が勝手に潰れないようにする */
+  overflow-x: visible;
+
+  /* 文字の縁取り */
+  text-shadow:
+    2px 2px 0px #000000,
     -1px -1px 0px #000000,
     1px -1px 0px #000000,
     -1px 1px 0px #000000,
     1px 1px 0px #000000;
 }
 
-/* ▼ 見出し（# の部分）の設定 */
-h1, h2, h3, h4, h5, h6 {
-  color: #00ffff;                 /* 文字を水色にする */
-  text-shadow: 0 0 10px #0088aa;  /* 文字をぼんやり光らせる */
-  padding-bottom: 5px;            /* 下の余白 */
-  
-  /* ▼ 元の線を消す設定 */
+
+/* =========================================================
+   見出し
+   ========================================================= */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #00ffff;
+  text-shadow: 0 0 10px #0088aa;
   border-bottom: none;
+  text-align: left;
+  padding-bottom: 5px;
 }
 
-/* ▼ リンクの全状態（未訪問・訪問済・クリック中）を一括で変更 */
-a, a:link, a:visited, a:active {
-  color: #00ffff; /* ここを水色に固定 */
-  text-decoration: none; /* 下線なし */
+h1 {
+  text-align: center;
+  font-size: 2.4rem;
+  line-height: 1.35;
+  margin-top: 1rem;
 }
 
-/* ▼ マウスを乗せたときのアニメーション */
+h2 {
+  margin-top: 3rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(0, 255, 255, 0.35);
+}
+
+h3 {
+  margin-top: 2.2rem;
+}
+
+h4,
+h5,
+h6 {
+  margin-top: 1.8rem;
+}
+
+
+/* =========================================================
+   本文
+   ========================================================= */
+
+p,
+li,
+td,
+th {
+  font-size: 1rem;
+}
+
+p,
+li {
+  text-align: left;
+}
+
+strong {
+  color: #ffffff;
+}
+
+ul,
+ol {
+  padding-left: 1.6rem;
+}
+
+li {
+  margin: 0.25rem 0;
+}
+
+
+/* =========================================================
+   リンク
+   ========================================================= */
+
+a,
+a:link,
+a:visited,
+a:active {
+  color: #00ffff;
+  text-decoration: none;
+}
+
 a:hover {
-  color: #ffffff; /* 白く光る */
-  text-decoration: underline; /* 下線を出す */
-  text-shadow: 0 0 8px #00ffff; /* ふわっと光らせる */
+  color: #ffffff;
+  text-decoration: underline;
+  text-shadow: 0 0 8px #00ffff;
   transition: 0.2s;
+}
+
+
+/* =========================================================
+   表：中央揃え + 崩れ防止
+   ========================================================= */
+
+table {
+  width: 100%;
+  max-width: 100%;
+
+  margin: 1.2rem auto 2rem auto;
+
+  border-collapse: collapse;
+  table-layout: fixed;
+
+  background: rgba(0, 20, 25, 0.35);
+}
+
+th,
+td {
+  padding: 0.8rem 1rem;
+
+  vertical-align: middle;
+  text-align: left;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+  line-height: 1.7;
+
+  /* 日本語が1文字ずつ縦に崩れるのを防ぐ */
+  writing-mode: horizontal-tb;
+  white-space: normal;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  line-break: strict;
+}
+
+th {
+  background: rgba(0, 90, 90, 0.55);
+  color: #ffffff;
+  font-weight: bold;
+}
+
+/* 2列テーブル用：項目 / 内容 */
+table th:first-child,
+table td:first-child {
+  width: 24%;
+  min-width: 10em;
+  white-space: nowrap;
+}
+
+table th:last-child,
+table td:last-child {
+  width: auto;
+}
+
+/* 3列テーブル用
+   必要な表だけ README 側で class="three-col" を付けると綺麗になる */
+table.three-col th:nth-child(1),
+table.three-col td:nth-child(1) {
+  width: 24%;
+}
+
+table.three-col th:nth-child(2),
+table.three-col td:nth-child(2) {
+  width: 32%;
+}
+
+table.three-col th:nth-child(3),
+table.three-col td:nth-child(3) {
+  width: 44%;
+}
+
+/* 4列テーブル用 */
+table.four-col th:nth-child(1),
+table.four-col td:nth-child(1) {
+  width: 22%;
+}
+
+table.four-col th:nth-child(2),
+table.four-col td:nth-child(2) {
+  width: 26%;
+}
+
+table.four-col th:nth-child(3),
+table.four-col td:nth-child(3) {
+  width: 26%;
+}
+
+table.four-col th:nth-child(4),
+table.four-col td:nth-child(4) {
+  width: 26%;
+}
+
+/* 横に長い表を囲む用 */
+.table-wrap {
+  width: 100%;
+  margin: 1.2rem auto 2rem auto;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.table-wrap table {
+  min-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* README側で table-wrap を付けられない場合の保険 */
+@media screen and (max-width: 1120px) {
+  table {
+    min-width: 760px;
+  }
+}
+
+
+/* =========================================================
+   画像・動画：中央揃え + 表示サイズ調整
+   ========================================================= */
+
+img,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  border-radius: 8px;
+}
+
+/* README内で class 指定がない画像にも適用 */
+a > img {
+  display: block;
+  margin: 24px auto 24px auto;
+}
+
+/* タイトル画像 */
+.title-image,
+img[alt*="タイトル"] {
+  width: 78%;
+  max-width: 900px;
+  height: auto;
+  margin: 24px auto 32px auto;
+}
+
+/* 通常のポートフォリオ画像 */
+.portfolio-image,
+img[alt*="ゲーム"],
+img[alt*="説明"],
+img[alt*="比較"],
+img[alt*="紹介"],
+img[alt*="サマリー"],
+img[alt*="流れ"],
+img[alt*="操作"],
+img[alt*="攻撃"] {
+  width: 82%;
+  max-width: 940px;
+  height: auto;
+  margin: 24px auto 16px auto;
+}
+
+/* 技術図・構成図 */
+.diagram-image,
+img[alt*="構成"],
+img[alt*="構造"],
+img[alt*="システム"],
+img[alt*="Before"],
+img[alt*="After"],
+img[alt*="Factory"],
+img[alt*="State"],
+img[alt*="Adapter"],
+img[alt*="入力"] {
+  width: 86%;
+  max-width: 980px;
+  height: auto;
+  margin: 24px auto 16px auto;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* 操作説明系 */
+.control-image,
+img[alt*="基本操作"],
+img[alt*="操作方法"] {
+  width: 74%;
+  max-width: 860px;
+  height: auto;
+  margin: 24px auto 20px auto;
+}
+
+/* 動画 */
+video,
+.portfolio-video,
+.video-wrap {
+  display: block;
+
+  width: 82%;
+  max-width: 940px;
+
+  margin: 24px auto 16px auto;
+  border-radius: 8px;
+}
+
+/* YouTube埋め込みなどを使う場合 */
+.video-wrap {
+  aspect-ratio: 16 / 9;
+}
+
+.video-wrap iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 8px;
+}
+
+
+/* =========================================================
+   details / summary
+   ========================================================= */
+
+details {
+  margin: 1rem 0 2rem;
+  padding: 0.8rem 1rem;
+
+  background: rgba(0, 20, 25, 0.25);
+  border: 1px solid rgba(0, 255, 255, 0.25);
+  border-radius: 8px;
+}
+
+summary {
+  cursor: pointer;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+
+/* =========================================================
+   code / pre
+   ========================================================= */
+
+code {
+  color: #ffffff;
+  background: rgba(0, 255, 255, 0.14);
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+}
+
+pre {
+  overflow-x: auto;
+  padding: 1rem;
+
+  background: rgba(0, 0, 0, 0.55);
+  border-radius: 8px;
+}
+
+pre code {
+  background: transparent;
+  padding: 0;
+}
+
+
+/* =========================================================
+   区切り線
+   ========================================================= */
+
+hr {
+  border: none;
+  border-top: 1px solid rgba(0, 255, 255, 0.35);
+  margin: 2rem 0;
+}
+
+
+/* =========================================================
+   補助クラス
+   README内で必要なら使える
+   ========================================================= */
+
+.center {
+  text-align: center;
+}
+
+.left {
+  text-align: left;
+}
+
+.media-wrap {
+  text-align: center;
+  margin: 1.5rem auto;
+}
+
+.media-wrap img,
+.media-wrap video {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.note {
+  padding: 1rem 1.2rem;
+  margin: 1.2rem 0 2rem;
+
+  background: rgba(0, 255, 255, 0.08);
+  border-left: 4px solid #00ffff;
+}
+
+
+/* =========================================================
+   デバイス別設定
+   =========================================================
+   レイアウト幅は変えない。
+   スマホ・タブレットでは横スクロールで表示する。
+   ========================================================= */
+
+@media screen and (max-width: 768px) {
+  html {
+    background-attachment: scroll;
+
+    /* スマホでも本文幅は固定 */
+    min-width: 1120px;
+    overflow-x: auto;
+  }
+
+  body {
+    width: 1120px;
+    max-width: 1120px;
+    min-width: 1120px;
+
+    margin: 0 auto;
+    padding: 2rem 2.5rem;
+  }
+
+  h1 {
+    font-size: 2.4rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  p,
+  li,
+  td,
+  th {
+    font-size: 1rem;
+  }
+
+  table {
+    table-layout: fixed;
+  }
+
+  th,
+  td {
+    white-space: normal;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+}
+
+
+/* かなり狭いスマホでもレイアウトは固定 */
+@media screen and (max-width: 480px) {
+  html {
+    min-width: 1120px;
+    overflow-x: auto;
+  }
+
+  body {
+    width: 1120px;
+    max-width: 1120px;
+    min-width: 1120px;
+  }
 }
