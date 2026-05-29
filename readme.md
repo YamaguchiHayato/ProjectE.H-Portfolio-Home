@@ -95,9 +95,9 @@ ELEMENTAL HUNTERSは、最大4人でボス討伐に挑む2D視点アクション
 
 本作品の面白さは、武器ごとに異なる攻撃アクションを使い分けながら、ボスを攻略することです。
 
-同じBボタンの攻撃でも、単発入力、連打、長押し、ジャンプ中入力、ダッシュ中入力によって攻撃内容が変化します。
+同じBボタンの攻撃内容が変化します。
 
-そのため、プレイヤーはキャラクターの特徴や状況に応じて、通常攻撃、連続攻撃、チャージ攻撃、空中攻撃、移動攻撃を使い分けながら戦えます。
+そのため、プレイヤーはキャラクターの特徴や状況に応じて、多種多様な攻撃を使い分けながら戦えます。
 
 また、NPCと共闘することで、ソロプレイでもパーティで戦っている感覚を出しています。
 
@@ -106,10 +106,9 @@ ELEMENTAL HUNTERSは、最大4人でボス討伐に挑む2D視点アクション
 ## ゲーム画面・紹介資料
 
 ### PV
+| YouTube | [こちらからアクセスできます](https://youtu.be/r-yJ1z-wsVI?si=spdDIfcF9PLhpZsw) |
 
-<video class="portfolio-video" src="./Video/ToCutForward.mp4" controls></video>
-
-ゲームの流れ、プレイアブルキャラクターの紹介、ボス戦、戦闘の雰囲気を短時間で確認できる紹介動画です。
+ゲームの流れ、プレイアブルキャラクターの紹介、ボス戦、戦闘の雰囲気を1分程度で確認できる紹介動画です。
 
 ---
 
@@ -207,7 +206,7 @@ ELEMENTAL HUNTERSは、最大4人でボス討伐に挑む2D視点アクション
 
 ### 復活システム
 
-<video class="portfolio-video" src="./Video/ReboneSystem.mp4" controls></video>
+![復活システム](./Gif/ReboneSystem.gif)
 
 他キャラクターのHPが0になった際、近くでYボタンを押すことで数秒間かけて復活させることができます。
 
@@ -216,12 +215,6 @@ ELEMENTAL HUNTERSは、最大4人でボス討伐に挑む2D視点アクション
 ---
 
 ## キャラクター紹介
-
-### キャラクター紹介PV
-
-<video class="portfolio-video" src="./Video/CharacterPV.mp4" controls></video>
-
-各キャラクターの攻撃アクションや役割を確認できる紹介動画です。
 
 <a href="Image/Table/CharacterComparison.png" target="_blank">
   <img class="portfolio-image" src="Image/Table/CharacterComparison.png" alt="キャラクター比較">
@@ -264,9 +257,7 @@ ELEMENTAL HUNTERSは、最大4人でボス討伐に挑む2D視点アクション
 さらに、プレイヤーとして操作可能なキャラクターは `Player` を中心にし、武器ごとの差分は `IWeaponCharacter` から派生する `SwordCharacter`、`HammerCharacter`、`WandCharacter`、`TwinGunCharacter` に分けました。
 
 #### 結果
-
 キャラクター本体の共通処理と、武器ごとの固有処理を分けられました。
-
 これにより、武器キャラクターを追加する際に既存のPlayer処理を大きく変更せずに拡張できる構成になりました。
 
 ---
@@ -278,13 +269,10 @@ ELEMENTAL HUNTERSは、最大4人でボス討伐に挑む2D視点アクション
 </a>
 
 #### 課題
-
-攻撃アクションを作る際、コンボの派生条件や技ごとのダメージ設定を全てコード内にif文で書くと、技が増えるたびに条件分岐が増えてしまいます。
-
-その結果、攻撃の追加や数値調整がしづらくなる問題がありました。
+攻撃アクションを作る際、コンボの派生条件や技ごとのダメージ設定を全てコード内にif文で書くと、
+技が増えるたびに条件分岐が増えてしまい、攻撃の追加や数値調整がしづらくなる問題がありました。
 
 #### 工夫
-
 攻撃の土台となる `PlayerAttackBaseState` を作り、各攻撃技がそれを継承する階層型Stateとして実装しました。
 
 また、コンボの派生条件は `ComboRouteTable`、攻撃ごとのダメージ倍率やクリティカル補正は `AttackParameterTable` に分離しました。
@@ -292,9 +280,7 @@ ELEMENTAL HUNTERSは、最大4人でボス討伐に挑む2D視点アクション
 ステート側では、現在の状態IDと入力条件をもとにテーブルを検索し、次の状態や攻撃パラメータを取得する形にしています。
 
 #### 結果
-
-攻撃ステート側の処理を増やしすぎず、コンボルートやダメージ倍率の調整をテーブル側で行えるようになりました。
-
+攻撃ステート側の処理を増やしすぎず、ルートやダメージ倍率の調整をテーブル側で行えるようになりました。
 これにより、アクションの調整作業とロジックの実装を分離でき、保守性と調整効率を高めることができました。
 
 ---
@@ -305,15 +291,12 @@ ELEMENTAL HUNTERSは、最大4人でボス討伐に挑む2D視点アクション
   <img class="diagram-image" src="Image/SystemFlow/InputSystemBeforeAfter.png" alt="入力システムのBefore After">
 </a>
 
-<a href="Image/SystemFlow/旧入力システムと新入力システムの比較.png" target="_blank">
-  <img class="diagram-image" src="Image/SystemFlow/旧入力システムと新入力システムの比較図">
-</a>
-
 #### 課題
 
 旧設計では、`PlayerInput` クラス内で物理コントローラー入力とNPC用の仮想入力を分岐して処理していました。
 
-そのため、`PlayerInput` が「入力元の判定」と「ゲームアクションへの変換」の両方を担当しており、操作キャラクター切り替えやNPC制御を拡張しづらい構造になっていました。
+そのため、`PlayerInput` が「入力元の判定」と「ゲームアクションへの変換」の両方を担当しており、
+操作キャラクター切り替えやNPC制御を拡張しづらい構造になっていました。
 
 #### 工夫
 
@@ -321,7 +304,9 @@ Adapterパターンを導入し、物理コントローラー用の `GamePadInpu
 
 `PlayerInput` は入力元を直接判定せず、親クラス経由で取得した入力を `IsJump`、`IsAttack`、`IsChargeAttack` などのゲームアクションへ変換する役割に限定しました。
 
-また、`PlayerControllerHub` を用意し、操作中のキャラクターには `GamePadInputAdapter`、非操作キャラクターには `VirtualInputAdapter` を割り当てることで、キャラクターを再生成せずに操作対象を切り替えられる構成にしました。
+また、`PlayerControllerHub` を用意し、操作中のキャラクターには `GamePadInputAdapter`、
+非操作キャラクターには `VirtualInputAdapter` を割り当てることで、キャラクターを再生成せずに
+操作対象を切り替えられる構成にしました。
 
 <a href="Image/SystemFlow/NPCVirtualInputStructure.png" target="_blank">
   <img class="diagram-image" src="Image/SystemFlow/NPCVirtualInputStructure.png" alt="NPCの仮想入力構成図">
@@ -343,15 +328,18 @@ NPCはAIが仮想入力を送ることでPlayerと同じアクション処理を
 
 #### 課題
 
-銃キャラクターの攻撃を実装する際、各攻撃Stateが弾丸の生成、モデル情報、速度、寿命、発射位置、エフェクト通知まで直接持ってしまうと、ステートクラスが肥大化してしまう問題がありました。
+銃キャラクターの攻撃を実装する際、各攻撃Stateが弾丸の生成、モデル情報、などを直接持ってしまうと、
+ステートクラスが肥大化してしまう問題がありました。
 
 #### 工夫
 
 攻撃ステートからは `BulletFireRequest` として、弾の種類、生成基準位置、発射方向だけを `GunShooter` へ渡す形にしました。
 
-`GunShooter` は `BulletFactory` に弾丸生成を依頼し、`BulletFactory` 側で `BulletType` に応じた弾丸クラスを生成します。
+`GunShooter` は `BulletFactory` に弾丸生成を依頼し、`BulletFactory` 側で 
+`BulletType` に応じた弾丸クラスを生成します。
 
-また、弾丸ごとの速度、寿命、生成位置補正は `BulletParameterTable` に分離し、モデル情報は `BulletModelRegister` から取得するようにしました。
+また、弾丸ごとの速度、寿命、生成位置補正は `BulletParameterTable` に分離し、
+モデル情報は `BulletModelRegister` から取得するようにしました。
 
 発射時のエフェクトなどは `IBulletFireListener` へ通知することで、弾丸生成処理と演出処理を分けています。
 
@@ -362,27 +350,31 @@ NPCはAIが仮想入力を送ることでPlayerと同じアクション処理を
 #### 結果
 
 攻撃ステートは発射タイミングと発射する弾丸の種類のみを扱う形になりました。
-
 その結果、弾の種類追加や速度調整を行う際の修正箇所を限定しやすくなりました。
 
 ---
 
 ### 5. データ駆動によるステージ読み込みシステムの構築
 
+<a href="Image/SystemFlow/データ駆動ステージ読み込みの効果.png" target="_blank">
+  <img class="diagram-image" src="Image/SystemFlow/データ駆動ステージ読み込みの効果.png" alt="弾丸生成システムの構成図">
+</a>
+
+
 #### 課題
 
-既存の設計ではステージごとにクラスを作成していたため、ステージが増えるたびに同じような処理が増え、コピーコードが量産されていました。
+既存の設計ではステージごとにクラスを作成していたため、ステージが増えるたびに同じような処理が増え、
+コピーコードが量産されていました。
 
 #### 工夫
 
 ステージの情報を描画、座標、モデルパスなどの構成データに分離しました。
-
-ステージごとの固有データは構造体にまとめ、`LoadStageData` クラスが識別子を受け取るだけで、そのステージを自動で読み込めるように設計しました。
+ステージごとの固有データは構造体にまとめ、`LoadStageData` クラスが識別子を受け取るだけで、
+そのステージを自動で読み込めるように設計しました。
 
 #### 結果
 
 ステージが増えてもクラス数は増えず、ステージデータの登録のみで運用できる形になりました。
-
 これにより、ステージ追加時のコピーコードを減らし、開発効率を高めることができました。
 
 ---
