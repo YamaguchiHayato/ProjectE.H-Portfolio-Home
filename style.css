@@ -524,6 +524,14 @@ hr {
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+.video-window-body img {
+  display: block;
+  width: 100%;
+  max-width: none;
+  height: auto;
+  margin: 0;
+  border-radius: 0;
+}
 
 /* =========================================================
    デバイス別設定

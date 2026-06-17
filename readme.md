@@ -433,11 +433,118 @@ Factoryパターンのみだと毎フレーム生成を行わなければなら�
 4. メインスレッド：1フレーム1ステップでインゲーム構築
 5. 完了後、インゲームシーンへ遷移
 
-読み込み中は進捗バーに加え、武器種ごとのランナー演出を表示します。
-以下は `Video` フォルダ内の4種類の差分動画です。
+以下は `Gif` フォルダ内の4種類の差分GIFです。
 
 <div class="video-grid-2x2">
   <div class="video-window">
+    <div class="video-window-header">
+      <span class="video-window-dot"></span>剣
+    </div>
+    <div class="video-window-body">
+      <img src="Gif/Loading_Sword.gif" alt="剣キャラのローディング演出">
+    </div>
+    <div class="video-window-caption">剣キャラのローディング演出</div>
+  </div>
+  <div class="video-window">
+    <div class="video-window-header">
+      <span class="video-window-dot"></span>ハンマー
+    </div>
+    <div class="video-window-body">
+      <img src="Gif/Loading_Hammer.gif" alt="ハンマーキャラのローディング演出">
+    </div>
+    <div class="video-window-caption">ハンマーキャラのローディング演出</div>
+  </div>
+  <div class="video-window">
+    <div class="video-window-header">
+      <span class="video-window-dot"></span>杖
+    </div>
+    <div class="video-window-body">
+      <img src="Gif/Loading_Wand.gif" alt="杖キャラのローディング演出">
+    </div>
+    <div class="video-window-caption">杖キャラのローディング演出</div>
+  </div>
+  <div class="video-window">
+    <div class="video-window-header">
+      <span class="video-window-dot"></span>銃
+    </div>
+    <div class="video-window-body">
+      <img src="Gif/Loading_Gun.gif" alt="銃キャラのローディング演出">
+    </div>
+    <div class="video-window-caption">銃キャラのローディング演出</div>
+  </div>
+</div>  <div class="video-window">
+    <div class="video-window-header">
+      <span class="video-window-dot"></span>剣
+    </div>
+    <div class="video-window-body">
+      <video src="Video/Loading_Sword.mp4" controls muted loop playsinline preload="metadata"></video>
+    </div>
+    <div class="video-window-caption">剣キャラのローディング演出</div>
+  </div>
+  <div class="video-window">
+    <div class="video-window-header">
+      <span class="video-window-dot"></span>ハンマー
+    </div>
+    <div class="video-window-body">
+      <video src="Video/Loading_Hammer.mp4" controls muted loop playsinline preload="metadata"></video>
+    </div>
+    <div class="video-window-caption">ハンマーキャラのローディング演出</div>
+  </div>
+  <div class="video-window">
+    <div class="video-window-header">
+      <span class="video-window-dot"></span>杖
+    </div>
+    <div class="video-window-body">
+      <video src="Video/Loading_Wand.mp4" controls muted loop playsinline preload="metadata"></video>
+    </div>
+    <div class="video-window-caption">杖キャラのローディング演出</div>
+  </div>
+  <div class="video-window">
+    <div class="video-window-header">
+      <span class="video-window-dot"></span>銃
+    </div>
+    <div class="video-window-body">
+      <video src="Video/Loading_Gun.mp4" controls muted loop playsinline preload="metadata"></video>
+    </div>
+    <div class="video-window-caption">銃キャラのローディング演出</div>
+  </div>
+</div>  <div class="video-window">
+    <div class="video-window-header">
+      <span class="video-window-dot"></span>剣
+    </div>
+    <div class="video-window-body">
+      <video src="Gif/Loading_Sword.gif" controls muted loop playsinline preload="metadata"></video>
+    </div>
+    <div class="video-window-caption">剣キャラのローディング演出</div>
+  </div>
+  <div class="video-window">
+    <div class="video-window-header">
+      <span class="video-window-dot"></span>ハンマー
+    </div>
+    <div class="video-window-body">
+      <video src="Gif/Loading_Hammer.gif" controls muted loop playsinline preload="metadata"></video>
+    </div>
+    <div class="video-window-caption">ハンマーキャラのローディング演出</div>
+  </div>
+  <div class="video-window">
+    <div class="video-window-header">
+      <span class="video-window-dot"></span>杖
+    </div>
+    <div class="video-window-body">
+      <video src="Gif/Loading_Wand.gif" controls muted loop playsinline preload="metadata"></video>
+    </div>
+    <div class="video-window-caption">杖キャラのローディング演出</div>
+  </div>
+  <div class="video-window">
+    <div class="video-window-header">
+      <span class="video-window-dot"></span>銃
+    </div>
+    <div class="video-window-body">
+      <video src="" controls muted loop playsinline preload="metadata"></video>
+    </div>
+    <div class="video-window-caption">銃キャラのローディング演出</div>
+  </div>
+</div>
     <div class="video-window-header">
       <span class="video-window-dot"></span>剣
     </div>
