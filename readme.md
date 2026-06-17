@@ -78,7 +78,8 @@ C++を用いたアクションゲーム制作で、プレイヤー操作、攻�
 
 ELEMENTAL HUNTERSは、最大4人でボス討伐に挑む2D視点アクションゲームです。
 
-プレイヤーは、剣・ハンマー・杖・銃など性能の異なるキャラクターを操作し、制限時間内にボスの撃破を目指します。
+プレイヤーは、剣・ハンマー・杖・銃など性能の異なるキャラクターを操作し、
+制限時間内にボスの撃破を目指します。
 
 ソロプレイ時はNPCと共闘できるため、1人でも複数キャラクターで戦っているような体験を目指しました。
 
@@ -104,14 +105,11 @@ ELEMENTAL HUNTERSは、最大4人でボス討伐に挑む2D視点アクション
 ---
 
 ## ゲーム画面・紹介資料
-
 ### PV
 | YouTube | [こちらからアクセスできます](https://youtu.be/r-yJ1z-wsVI?si=spdDIfcF9PLhpZsw) |
-
 ゲームの流れ、プレイアブルキャラクターの紹介、ボス戦、戦闘の雰囲気を1分程度で確認できる紹介動画です。
 
 ---
-
 ### ゲーム紹介スライド
 
 <a href="Image/BackGround/ゲーム説明スライド_サムネ.png" target="_blank">
@@ -228,13 +226,15 @@ ELEMENTAL HUNTERSは、最大4人でボス討伐に挑む2D視点アクション
 
 本作品では、デザインパターンを実装するだけでなく、修正や追加を行いやすくすることを重視しました。
 
-| 技術項目 | 見てほしい理由 |
+| 技術項目 | 理由 |
 |---|---|
 | キャラクター共通基盤 | キャラクターごとの重複処理を整理し、武器ごとの差分を分離したため |
 | 階層型State + コンボテーブル | アクション追加や攻撃調整をしやすい構成にしたため |
 | 入力Adapter / NPC制御 | 物理入力と仮想入力を共通化し、PlayerとNPCの挙動差を抑えたため |
 | BulletFireRequest / Factory | 攻撃Stateから弾生成処理を分離し、修正箇所を限定したため |
 | データ駆動ステージ読み込み | ステージ追加時のコピーコードを減らすため |
+| TSVによるパラメータ外部化| 大量のパラメータ調整をコンパイル不要にし、可読性を高めるため|
+| ||
 
 ---
 
@@ -379,13 +379,127 @@ NPCはAIが仮想入力を送ることでPlayerと同じアクション処理を
 
 ---
 
+### 6. TSVによるパラメータ外部化
+
+<a href="Image/Table/TSVTable.png" target="_blank">
+  <img class="diagram-image" src="Image/Table/TSVTable.png" alt="">
+</a>
+
+### 導入背景
+当初は`std::unordred_map`を用いてテーブル管理を行っていました。
+しかし、開発が進むうちに調整項目や引数が増えテーブルとしての視認性が悪くなってしまう問題が発生してしまいました。そこで、この問題を解決するべくTSVファイルによるパラメーターの外部化を図りました。これによりTSVデータの数値を変更するだけでゲームへ反映することができ、誰でも簡単に調整が可能となっています。
+
+### なぜJSONではなくTSVなのか
+ステータス管理としてJSONを用いれる例は多いと思います。ですが、今回の担当範囲は武器種や弾丸などの数値一覧となりいわゆる表データであります。1行1列ごとに調整項目という構造上である以上、TSVファイルが最適だと判断しました。また、TSVファイルはExcelデータをそのまま編集できるためプログラムが慣れていない方でも編集が容易なのは大きなメリットだと感じています。JSONの場合、括弧やカンマの記載ミスなどにより表形式のデータを手作業で直す用途には向きにくいと考えました。以上の理由から、汎用性の高い JSON ではなく、今回のデータ構造と編集フローに合った TSV を採用しました。
+
+---
+
+##　7.オブジェクトプールによる生成/破棄コストの削減
+
+<a href="Image/ObjectPool.png" target="_blank">
+  <img class="diagram-image" src="Image/ObjectPool.png" alt="オブジェクトプールの構成図">
+</a>
+
+### 処理の流れ
+
+起動時にテンプレートから必要数を把握し、事前に生成しています。
+また、表示のタイミングを`Active()`,`OnRelease()`で切り替え、
+プールにからの状態ができた場合のみ、`Factory`クラスから追加生成を依頼しています。
+
+### 他システムとの組み合わせ
+攻撃Stateは発射タイミング、`BulletFireRequest` / `BulletFactory` は生成ロジック、`Template<>` は取得・返却を担当します。
+生成と再利用を分離することで、セクション4のFactory設計と役割が重ならない構成にしています。
+まず `PresentDamageIndicator` から適用し、弾丸・魔法も同じ流れで載せられるようにしています。
+
+
+### この構成になった理由
+
+Factoryパターンのみだと毎フレーム生成を行わなければならなく、生成と破棄に負荷がとてもかかってしまいます。また、プールだけの適応としても種類ごとの生成にはプール側に偏ってしますため少し普通号に感じてしましした。そこで、両者を組み合わせることで生成時のルールと寿命を管理するだけでよくなり、他のプール化したい対象が居れば同様の手法で取り組めるようになっています。
+
+
+---
+
+## 8. 非同期ロードと段階的構築システム
+
+<a href="Image/Loading.png" target="_blank">
+  <img class="diagram-image" src="Image/Loading.png" alt="非同期ロードと段階的構築の構成図">
+</a>
+
+### 処理の流れ
+
+1. シーン選択
+2. ローディングシーンへ遷移
+3. サブスレッド：TSV等の読み込み
+4. メインスレッド：1フレーム1ステップでインゲーム構築
+5. 完了後、インゲームシーンへ遷移
+
+読み込み中は進捗バーに加え、武器種ごとのランナー演出を表示します。
+以下は `Video` フォルダ内の4種類の差分動画です。
+
+<div class="video-grid-2x2">
+  <div class="video-window">
+    <div class="video-window-header">
+      <span class="video-window-dot"></span>剣
+    </div>
+    <div class="video-window-body">
+      <video src="Video/Loading_Sword.mp4" controls muted loop playsinline></video>
+    </div>
+    <div class="video-window-caption">剣キャラのローディング演出</div>
+  </div>
+  <div class="video-window">
+    <div class="video-window-header">
+      <span class="video-window-dot"></span>ハンマー
+    </div>
+    <div class="video-window-body">
+      <video src="Video/Loading_Hammer.mp4" controls muted loop playsinline></video>
+    </div>
+    <div class="video-window-caption">ハンマーキャラのローディング演出</div>
+  </div>
+  <div class="video-window">
+    <div class="video-window-header">
+      <span class="video-window-dot"></span>杖
+    </div>
+    <div class="video-window-body">
+      <video src="Video/Loading_Wand.mp4" controls muted loop playsinline></video>
+    </div>
+    <div class="video-window-caption">杖キャラのローディング演出</div>
+  </div>
+  <div class="video-window">
+    <div class="video-window-header">
+      <span class="video-window-dot"></span>銃
+    </div>
+    <div class="video-window-body">
+      <video src="Video/Loading_Gun.mp4" controls muted loop playsinline></video>
+    </div>
+    <div class="video-window-caption">銃キャラのローディング演出</div>
+  </div>
+</div>
+
+### 他システムとの組み合わせ
+
+`LoadStageData` でステージ構成を定義し、TSVでパラメータを外部化しています。
+非同期ロード管理がファイル読み込み・パース、段階構築ヘルパーがメインスレッド上でのオブジェクト生成、ローディングシーンが遷移制御と演出を担当します。
+「何を載せるか」「読む」「載せる」「見せる」を分け、セクション5・6のデータ駆動設計の延長として構築しています。
+
+### この構成になった理由
+
+ファイルI/Oはサブスレッド向きですが、描画やゲームオブジェクトの生成はメインスレッド側の処理が多いため、全部を非同期に寄せず「読む／載せる」で分担しています。
+4武器のランナー演出で、待ち時間中も処理が進んでいることを視覚的に伝えています。
+
+### 今後の改善
+
+現状は読み込みと構築の分担までですが、生成・読み込み対象をさらにスレッドで仕分けし、ロード時間の短縮を進めます。
+
+---
+
+
 ## 提出・確認情報
 
 | 項目 | 内容 |
 |---|---|
 | 起動方法 | `Game.exe` を起動してください |
 | 推奨環境 | Windows 11 |
-| 推奨操作 | Xbox系コントローラー |
+| 推奨操作 | Xbox系コントローラー (DirectInputSystemが採用されているため)|
 | キーボード操作 | 対応 |
 | 確認してほしい内容 | PV / キャラクター紹介 / 攻撃方法 / 入力Adapter / BulletFireRequest |
 | 既知の不具合 | 提出時点で把握している進行不能の既知不具合はありません |
@@ -403,10 +517,11 @@ NPCはAIが仮想入力を送ることでPlayerと同じアクション処理を
 - 非同期ロード
   - ステージを読み込む際など、間のウェイト処理として実装していこうと思います。
 
-- シェーダープログラミング
-  - トゥーンシェーダー
-  - アウトラインシェーダー
-  - モーフアニメーション を実装予定。 
+- ガードシステムの実装
+  - ガードを展開するとダメージを一定期間軽減できるように実装予定です。
+
+- 生成データのスレッド分け
+  - 現在はメインスレッドに生成を任せている状態なので、メインスレッドとサブスレッドに何を読み込ませるかを仕分けし、ローディング画面の最適化を行おうと思います。  　
 
 ---
 

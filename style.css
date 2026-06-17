@@ -9,6 +9,7 @@
    - 文字は左揃え
    - 背景画像に暗幕を重ねて文字を読みやすくする
    - GitHub Pages / README向けの画像・動画表示調整
+   - 2×2 動画グリッド（ウィンドウ風）
    ========================================================= */
 
 
@@ -458,6 +459,69 @@ hr {
 
   background: rgba(0, 255, 255, 0.08);
   border-left: 4px solid #00ffff;
+}
+
+
+/* =========================================================
+   2×2 動画グリッド（ウィンドウ風）
+   ========================================================= */
+
+.video-grid-2x2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  width: 92%;
+  max-width: 980px;
+  margin: 24px auto 16px auto;
+}
+
+.video-window {
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(0, 255, 255, 0.35);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.6) inset,
+    0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+.video-window-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(0, 255, 255, 0.12);
+  border-bottom: 1px solid rgba(0, 255, 255, 0.25);
+  font-size: 0.95rem;
+  color: #00ffff;
+}
+
+.video-window-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(0, 255, 255, 0.55);
+  flex-shrink: 0;
+}
+
+.video-window-body {
+  background: #000;
+}
+
+.video-window-body video {
+  display: block;
+  width: 100%;
+  max-width: none;
+  height: auto;
+  margin: 0;
+  border-radius: 0;
+}
+
+.video-window-caption {
+  padding: 8px 12px 10px;
+  font-size: 0.9rem;
+  color: #d8f8ff;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 
