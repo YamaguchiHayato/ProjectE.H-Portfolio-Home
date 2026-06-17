@@ -27,15 +27,15 @@
 C++を用いたアクションゲーム制作で、プレイヤー操作、攻撃処理、NPC制御など、
 ゲームの遊びを支える実装を中心に担当しています。
 
-本作品で担当した箇所は以下の通りになっています。
+本作品で担当した箇所は以下の通りです。
 
 | 担当箇所 | 内容 |
 |---|---|
 | プレイヤー操作 | 4種類のキャラクターの基本動作と攻撃アクション部分 |
-| 攻撃処理| 階層型StatePatternを用いたコンボや攻撃遷移処理|
-| NPCの行動ロジック|プレイアブルキャラができる全行動をロジック化|
-| 入力処理| PlayerとNPCの入力処理を共通処理とするAdapterPattern|
-| 攻撃オブジェクトの生成管理| FactoryPatternを用いた生成管理|
+| 攻撃処理 | 階層型StatePatternを用いたコンボや攻撃遷移処理 |
+| NPCの行動ロジック | プレイアブルキャラができる全行動をロジック化 |
+| 入力処理 | PlayerとNPCの入力処理を共通処理とするAdapterPattern |
+| 攻撃オブジェクトの生成管理 | FactoryPatternを用いた生成管理 |
 
 ---
 
@@ -48,8 +48,6 @@ C++を用いたアクションゲーム制作で、プレイヤー操作、攻�
 | 操作方法・攻撃方法 | 同じ攻撃ボタンでも入力状態によって攻撃が変化する本作の特徴が分かるため |
 | 入力Adapter / NPC制御 | PlayerとNPCで同じアクション処理を使えるようにした設計意図が分かるため |
 | BulletFireRequest / Factory | 攻撃Stateと弾生成処理を分離した工夫が分かるため |
-
-
 
 ---
 
@@ -96,7 +94,7 @@ ELEMENTAL HUNTERSは、最大4人でボス討伐に挑む2D視点アクション
 
 本作品の面白さは、武器ごとに異なる攻撃アクションを使い分けながら、ボスを攻略することです。
 
-同じBボタンの攻撃内容が変化します。
+同じBボタンでも攻撃内容が変化します。
 
 そのため、プレイヤーはキャラクターの特徴や状況に応じて、多種多様な攻撃を使い分けながら戦えます。
 
@@ -105,11 +103,17 @@ ELEMENTAL HUNTERSは、最大4人でボス討伐に挑む2D視点アクション
 ---
 
 ## ゲーム画面・紹介資料
+
 ### PV
+
+| 項目 | URL |
+|---|---|
 | YouTube | [こちらからアクセスできます](https://youtu.be/r-yJ1z-wsVI?si=spdDIfcF9PLhpZsw) |
+
 ゲームの流れ、プレイアブルキャラクターの紹介、ボス戦、戦闘の雰囲気を1分程度で確認できる紹介動画です。
 
 ---
+
 ### ゲーム紹介スライド
 
 <a href="Image/BackGround/ゲーム説明スライド_サムネ.png" target="_blank">
@@ -233,8 +237,9 @@ ELEMENTAL HUNTERSは、最大4人でボス討伐に挑む2D視点アクション
 | 入力Adapter / NPC制御 | 物理入力と仮想入力を共通化し、PlayerとNPCの挙動差を抑えたため |
 | BulletFireRequest / Factory | 攻撃Stateから弾生成処理を分離し、修正箇所を限定したため |
 | データ駆動ステージ読み込み | ステージ追加時のコピーコードを減らすため |
-| TSVによるパラメータ外部化| 大量のパラメータ調整をコンパイル不要にし、可読性を高めるため|
-| ||
+| TSVによるパラメータ外部化 | 大量のパラメータ調整をコンパイル不要にし、可読性を高めるため |
+| オブジェクトプール | 生成と再利用を分離し、戦闘中の処理負荷を抑えるため |
+| 非同期ロード / Loading | シーン遷移時のフリーズと待ち時間の体感を改善するため |
 
 ---
 
@@ -257,6 +262,7 @@ ELEMENTAL HUNTERSは、最大4人でボス討伐に挑む2D視点アクション
 さらに、プレイヤーとして操作可能なキャラクターは `Player` を中心にし、武器ごとの差分は `IWeaponCharacter` から派生する `SwordCharacter`、`HammerCharacter`、`WandCharacter`、`TwinGunCharacter` に分けました。
 
 #### 結果
+
 キャラクター本体の共通処理と、武器ごとの固有処理を分けられました。
 これにより、武器キャラクターを追加する際に既存のPlayer処理を大きく変更せずに拡張できる構成になりました。
 
@@ -269,10 +275,12 @@ ELEMENTAL HUNTERSは、最大4人でボス討伐に挑む2D視点アクション
 </a>
 
 #### 課題
+
 攻撃アクションを作る際、コンボの派生条件や技ごとのダメージ設定を全てコード内にif文で書くと、
 技が増えるたびに条件分岐が増えてしまい、攻撃の追加や数値調整がしづらくなる問題がありました。
 
 #### 工夫
+
 攻撃の土台となる `PlayerAttackBaseState` を作り、各攻撃技がそれを継承する階層型Stateとして実装しました。
 
 また、コンボの派生条件は `ComboRouteTable`、攻撃ごとのダメージ倍率やクリティカル補正は `AttackParameterTable` に分離しました。
@@ -280,6 +288,7 @@ ELEMENTAL HUNTERSは、最大4人でボス討伐に挑む2D視点アクション
 ステート側では、現在の状態IDと入力条件をもとにテーブルを検索し、次の状態や攻撃パラメータを取得する形にしています。
 
 #### 結果
+
 攻撃ステート側の処理を増やしすぎず、ルートやダメージ倍率の調整をテーブル側で行えるようになりました。
 これにより、アクションの調整作業とロジックの実装を分離でき、保守性と調整効率を高めることができました。
 
@@ -328,14 +337,14 @@ NPCはAIが仮想入力を送ることでPlayerと同じアクション処理を
 
 #### 課題
 
-銃キャラクターの攻撃を実装する際、各攻撃Stateが弾丸の生成、モデル情報、などを直接持ってしまうと、
+銃キャラクターの攻撃を実装する際、各攻撃Stateが弾丸の生成、モデル情報などを直接持ってしまうと、
 ステートクラスが肥大化してしまう問題がありました。
 
 #### 工夫
 
 攻撃ステートからは `BulletFireRequest` として、弾の種類、生成基準位置、発射方向だけを `GunShooter` へ渡す形にしました。
 
-`GunShooter` は `BulletFactory` に弾丸生成を依頼し、`BulletFactory` 側で 
+`GunShooter` は `BulletFactory` に弾丸生成を依頼し、`BulletFactory` 側で
 `BulletType` に応じた弾丸クラスを生成します。
 
 また、弾丸ごとの速度、寿命、生成位置補正は `BulletParameterTable` に分離し、
@@ -357,9 +366,8 @@ NPCはAIが仮想入力を送ることでPlayerと同じアクション処理を
 ### 5. データ駆動によるステージ読み込みシステムの構築
 
 <a href="Image/SystemFlow/データ駆動ステージ読み込みの効果.png" target="_blank">
-  <img class="diagram-image" src="Image/SystemFlow/データ駆動ステージ読み込みの効果.png" alt="弾丸生成システムの構成図">
+  <img class="diagram-image" src="Image/SystemFlow/データ駆動ステージ読み込みの効果.png" alt="データ駆動ステージ読み込みの効果">
 </a>
-
 
 #### 課題
 
@@ -382,19 +390,21 @@ NPCはAIが仮想入力を送ることでPlayerと同じアクション処理を
 ### 6. TSVによるパラメータ外部化
 
 <a href="Image/Table/TSVTable.png" target="_blank">
-  <img class="diagram-image" src="Image/Table/TSVTable.png" alt="">
+  <img class="diagram-image" src="Image/Table/TSVTable.png" alt="TSVによるパラメータ外部化">
 </a>
 
 ### 導入背景
-当初は`std::unordred_map`を用いてテーブル管理を行っていました。
+
+当初は `std::unordered_map` を用いてテーブル管理を行っていました。
 しかし、開発が進むうちに調整項目や引数が増えテーブルとしての視認性が悪くなってしまう問題が発生してしまいました。そこで、この問題を解決するべくTSVファイルによるパラメーターの外部化を図りました。これによりTSVデータの数値を変更するだけでゲームへ反映することができ、誰でも簡単に調整が可能となっています。
 
 ### なぜJSONではなくTSVなのか
-ステータス管理としてJSONを用いれる例は多いと思います。ですが、今回の担当範囲は武器種や弾丸などの数値一覧となりいわゆる表データであります。1行1列ごとに調整項目という構造上である以上、TSVファイルが最適だと判断しました。また、TSVファイルはExcelデータをそのまま編集できるためプログラムが慣れていない方でも編集が容易なのは大きなメリットだと感じています。JSONの場合、括弧やカンマの記載ミスなどにより表形式のデータを手作業で直す用途には向きにくいと考えました。以上の理由から、汎用性の高い JSON ではなく、今回のデータ構造と編集フローに合った TSV を採用しました。
+
+ステータス管理としてJSONを用いられる例は多いと思います。ですが、今回の担当範囲は武器種や弾丸などの数値一覧という、いわゆる表データです。1行1列ごとに調整項目が並ぶ表データである以上、TSVファイルが最適だと判断しました。また、TSVファイルはExcelデータをそのまま編集できるためプログラムに慣れていない方でも編集が容易なのは大きなメリットだと感じています。JSONの場合、括弧やカンマの記載ミスなどにより表形式のデータを手作業で直す用途には向きにくいと考えました。以上の理由から、汎用性の高い JSON ではなく、今回のデータ構造と編集フローに合った TSV を採用しました。
 
 ---
 
-##　7.オブジェクトプールによる生成/破棄コストの削減
+### 7. オブジェクトプールによる生成・破棄コストの削減
 
 <a href="Image/ObjectPool.png" target="_blank">
   <img class="diagram-image" src="Image/ObjectPool.png" alt="オブジェクトプールの構成図">
@@ -403,23 +413,24 @@ NPCはAIが仮想入力を送ることでPlayerと同じアクション処理を
 ### 処理の流れ
 
 起動時にテンプレートから必要数を把握し、事前に生成しています。
-また、表示のタイミングを`Active()`,`OnRelease()`で切り替え、
-プールにからの状態ができた場合のみ、`Factory`クラスから追加生成を依頼しています。
+また、表示のタイミングを `Active()`、`OnRelease()` で切り替え、
+プールが空の状態になった場合のみ、`Factory` クラスから追加生成を依頼しています。
 
 ### 他システムとの組み合わせ
+
 攻撃Stateは発射タイミング、`BulletFireRequest` / `BulletFactory` は生成ロジック、`Template<>` は取得・返却を担当します。
 生成と再利用を分離することで、セクション4のFactory設計と役割が重ならない構成にしています。
 まず `PresentDamageIndicator` から適用し、弾丸・魔法も同じ流れで載せられるようにしています。
 
-
 ### この構成になった理由
 
-Factoryパターンのみだと毎フレーム生成を行わなければならなく、生成と破棄に負荷がとてもかかってしまいます。また、プールだけの適応としても種類ごとの生成にはプール側に偏ってしますため少し普通号に感じてしましした。そこで、両者を組み合わせることで生成時のルールと寿命を管理するだけでよくなり、他のプール化したい対象が居れば同様の手法で取り組めるようになっています。
-
+Factoryパターンのみでは都度の生成・破棄が続き、生成と破棄に負荷がかかってしまいます。
+Poolのみでは種類ごとの生成ロジックがプール側に偏り、責務が分かりにくくなります。
+両者を組み合わせることで、生成ルールと寿命管理を分けられ、プール化したい対象が増えても同じ手法で対応できます。
 
 ---
 
-## 8. 非同期ロードと段階的構築システム
+### 8. 非同期ロードと段階的構築システム
 
 <a href="Image/Loading.png" target="_blank">
   <img class="diagram-image" src="Image/Loading.png" alt="非同期ロードと段階的構築の構成図">
@@ -433,6 +444,7 @@ Factoryパターンのみだと毎フレーム生成を行わなければなら�
 4. メインスレッド：1フレーム1ステップでインゲーム構築
 5. 完了後、インゲームシーンへ遷移
 
+読み込み中は進捗バーに加え、武器種ごとのランナー演出を表示します。
 以下は `Gif` フォルダ内の4種類の差分GIFです。
 
 <div class="video-grid-2x2">
@@ -472,114 +484,6 @@ Factoryパターンのみだと毎フレーム生成を行わなければなら�
     </div>
     <div class="video-window-caption">銃キャラのローディング演出</div>
   </div>
-</div>  <div class="video-window">
-    <div class="video-window-header">
-      <span class="video-window-dot"></span>剣
-    </div>
-    <div class="video-window-body">
-      <video src="Video/Loading_Sword.mp4" controls muted loop playsinline preload="metadata"></video>
-    </div>
-    <div class="video-window-caption">剣キャラのローディング演出</div>
-  </div>
-  <div class="video-window">
-    <div class="video-window-header">
-      <span class="video-window-dot"></span>ハンマー
-    </div>
-    <div class="video-window-body">
-      <video src="Video/Loading_Hammer.mp4" controls muted loop playsinline preload="metadata"></video>
-    </div>
-    <div class="video-window-caption">ハンマーキャラのローディング演出</div>
-  </div>
-  <div class="video-window">
-    <div class="video-window-header">
-      <span class="video-window-dot"></span>杖
-    </div>
-    <div class="video-window-body">
-      <video src="Video/Loading_Wand.mp4" controls muted loop playsinline preload="metadata"></video>
-    </div>
-    <div class="video-window-caption">杖キャラのローディング演出</div>
-  </div>
-  <div class="video-window">
-    <div class="video-window-header">
-      <span class="video-window-dot"></span>銃
-    </div>
-    <div class="video-window-body">
-      <video src="Video/Loading_Gun.mp4" controls muted loop playsinline preload="metadata"></video>
-    </div>
-    <div class="video-window-caption">銃キャラのローディング演出</div>
-  </div>
-</div>  <div class="video-window">
-    <div class="video-window-header">
-      <span class="video-window-dot"></span>剣
-    </div>
-    <div class="video-window-body">
-      <video src="Gif/Loading_Sword.gif" controls muted loop playsinline preload="metadata"></video>
-    </div>
-    <div class="video-window-caption">剣キャラのローディング演出</div>
-  </div>
-  <div class="video-window">
-    <div class="video-window-header">
-      <span class="video-window-dot"></span>ハンマー
-    </div>
-    <div class="video-window-body">
-      <video src="Gif/Loading_Hammer.gif" controls muted loop playsinline preload="metadata"></video>
-    </div>
-    <div class="video-window-caption">ハンマーキャラのローディング演出</div>
-  </div>
-  <div class="video-window">
-    <div class="video-window-header">
-      <span class="video-window-dot"></span>杖
-    </div>
-    <div class="video-window-body">
-      <video src="Gif/Loading_Wand.gif" controls muted loop playsinline preload="metadata"></video>
-    </div>
-    <div class="video-window-caption">杖キャラのローディング演出</div>
-  </div>
-  <div class="video-window">
-    <div class="video-window-header">
-      <span class="video-window-dot"></span>銃
-    </div>
-    <div class="video-window-body">
-      <video src="" controls muted loop playsinline preload="metadata"></video>
-    </div>
-    <div class="video-window-caption">銃キャラのローディング演出</div>
-  </div>
-</div>
-    <div class="video-window-header">
-      <span class="video-window-dot"></span>剣
-    </div>
-    <div class="video-window-body">
-      <video src="Video/Loading_Sword.mp4" controls muted loop playsinline></video>
-    </div>
-    <div class="video-window-caption">剣キャラのローディング演出</div>
-  </div>
-  <div class="video-window">
-    <div class="video-window-header">
-      <span class="video-window-dot"></span>ハンマー
-    </div>
-    <div class="video-window-body">
-      <video src="Video/Loading_Hammer.mp4" controls muted loop playsinline></video>
-    </div>
-    <div class="video-window-caption">ハンマーキャラのローディング演出</div>
-  </div>
-  <div class="video-window">
-    <div class="video-window-header">
-      <span class="video-window-dot"></span>杖
-    </div>
-    <div class="video-window-body">
-      <video src="Video/Loading_Wand.mp4" controls muted loop playsinline></video>
-    </div>
-    <div class="video-window-caption">杖キャラのローディング演出</div>
-  </div>
-  <div class="video-window">
-    <div class="video-window-header">
-      <span class="video-window-dot"></span>銃
-    </div>
-    <div class="video-window-body">
-      <video src="Video/Loading_Gun.mp4" controls muted loop playsinline></video>
-    </div>
-    <div class="video-window-caption">銃キャラのローディング演出</div>
-  </div>
 </div>
 
 ### 他システムとの組み合わせ
@@ -590,7 +494,7 @@ Factoryパターンのみだと毎フレーム生成を行わなければなら�
 
 ### この構成になった理由
 
-ファイルI/Oはサブスレッド向きですが、描画やゲームオブジェクトの生成はメインスレッド側の処理が多いため、全部を非同期に寄せず「読む／載せる」で分担しています。
+ファイルI/Oはサブスレッド向きですが、描画やゲームオブジェクトの生成はメインスレッド側の処理が多いため、処理をすべて非同期にせず「読む／載せる」で分担しています。
 4武器のランナー演出で、待ち時間中も処理が進んでいることを視覚的に伝えています。
 
 ### 今後の改善
@@ -599,16 +503,15 @@ Factoryパターンのみだと毎フレーム生成を行わなければなら�
 
 ---
 
-
 ## 提出・確認情報
 
 | 項目 | 内容 |
 |---|---|
 | 起動方法 | `Game.exe` を起動してください |
 | 推奨環境 | Windows 11 |
-| 推奨操作 | Xbox系コントローラー (DirectInputSystemが採用されているため)|
+| 推奨操作 | Xbox系コントローラー (DirectInputSystemが採用されているため) |
 | キーボード操作 | 対応 |
-| 確認してほしい内容 | PV / キャラクター紹介 / 攻撃方法 / 入力Adapter / BulletFireRequest |
+| 確認してほしい内容 | PV / キャラクター紹介 / 攻撃方法 / 入力Adapter / BulletFireRequest / Loading |
 | 既知の不具合 | 提出時点で把握している進行不能の既知不具合はありません |
 
 ---
@@ -621,14 +524,11 @@ Factoryパターンのみだと毎フレーム生成を行わなければなら�
 - ステージ追加
   - ステージを2〜3種類追加し、バリエーションを増やす予定です。
 
-- 非同期ロード
-  - ステージを読み込む際など、間のウェイト処理として実装していこうと思います。
+- ロード処理の最適化
+  - 読み込みと構築の分担は実装済みです。今後は生成・読み込み対象のスレッド仕分けを進め、ロード時間の短縮を図ります。
 
 - ガードシステムの実装
   - ガードを展開するとダメージを一定期間軽減できるように実装予定です。
-
-- 生成データのスレッド分け
-  - 現在はメインスレッドに生成を任せている状態なので、メインスレッドとサブスレッドに何を読み込ませるかを仕分けし、ローディング画面の最適化を行おうと思います。  　
 
 ---
 
@@ -640,4 +540,4 @@ Factoryパターンのみだと毎フレーム生成を行わなければなら�
 | Googleドライブ | [こちらからアクセスできます](https://drive.google.com/drive/folders/1uRL0AiCKYP2HvznbBXS_wLJY3bZnr4bU?usp=drive_link) |
 | GitHub | [こちらからアクセスできます](https://github.com/TanimotoYuuki/Project-EH) |
 | 過去作品（個人制作） | [こちらからアクセスできます](https://github.com/YamaguchiHayato/Dimensional-Flip) |
-|過去作品(ポートフォリオ)|[こちらからアクセスできます](https://yamaguchihayato.github.io/DimensionFlip-Portfolio.github.io/)|
+| 過去作品(ポートフォリオ) | [こちらからアクセスできます](https://yamaguchihayato.github.io/DimensionFlip-Portfolio.github.io/) |

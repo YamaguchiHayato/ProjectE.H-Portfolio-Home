@@ -414,7 +414,7 @@ code {
 <h3 id="自己pr">自己PR</h3>
 <p>C++を用いたアクションゲーム制作で、プレイヤー操作、攻撃処理、NPC制御など、
 ゲームの遊びを支える実装を中心に担当しています。</p>
-<p>本作品で担当した箇所は以下の通りになっています。</p>
+<p>本作品で担当した箇所は以下の通りです。</p>
 <table>
 <thead>
 <tr>
@@ -567,14 +567,27 @@ code {
 <hr>
 <h2 id="何が面白いか">何が面白いか</h2>
 <p>本作品の面白さは、武器ごとに異なる攻撃アクションを使い分けながら、ボスを攻略することです。</p>
-<p>同じBボタンの攻撃内容が変化します。</p>
+<p>同じBボタンでも攻撃内容が変化します。</p>
 <p>そのため、プレイヤーはキャラクターの特徴や状況に応じて、多種多様な攻撃を使い分けながら戦えます。</p>
 <p>また、NPCと共闘することで、ソロプレイでもパーティで戦っている感覚を出しています。</p>
 <hr>
 <h2 id="ゲーム画面紹介資料">ゲーム画面・紹介資料</h2>
 <h3 id="pv">PV</h3>
-<p>| YouTube | <a href="https://youtu.be/r-yJ1z-wsVI?si=spdDIfcF9PLhpZsw">こちらからアクセスできます</a> |
-ゲームの流れ、プレイアブルキャラクターの紹介、ボス戦、戦闘の雰囲気を1分程度で確認できる紹介動画です。</p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>URL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>YouTube</td>
+<td><a href="https://youtu.be/r-yJ1z-wsVI?si=spdDIfcF9PLhpZsw">こちらからアクセスできます</a></td>
+</tr>
+</tbody>
+</table>
+<p>ゲームの流れ、プレイアブルキャラクターの紹介、ボス戦、戦闘の雰囲気を1分程度で確認できる紹介動画です。</p>
 <hr>
 <h3 id="ゲーム紹介スライド">ゲーム紹介スライド</h3>
 <a href="Image/BackGround/ゲーム説明スライド_サムネ.png" target="_blank">
@@ -722,8 +735,12 @@ code {
 <td>大量のパラメータ調整をコンパイル不要にし、可読性を高めるため</td>
 </tr>
 <tr>
-<td></td>
-<td></td>
+<td>オブジェクトプール</td>
+<td>生成と再利用を分離し、戦闘中の処理負荷を抑えるため</td>
+</tr>
+<tr>
+<td>非同期ロード / Loading</td>
+<td>シーン遷移時のフリーズと待ち時間の体感を改善するため</td>
 </tr>
 </tbody>
 </table>
@@ -783,7 +800,7 @@ code {
   <img class="diagram-image" src="Image/DesignPattern/FactoryPattern.png" alt="弾生成処理のBefore After">
 </a>
 <h4 id="課題-3">課題</h4>
-<p>銃キャラクターの攻撃を実装する際、各攻撃Stateが弾丸の生成、モデル情報、などを直接持ってしまうと、
+<p>銃キャラクターの攻撃を実装する際、各攻撃Stateが弾丸の生成、モデル情報などを直接持ってしまうと、
 ステートクラスが肥大化してしまう問題がありました。</p>
 <h4 id="工夫-3">工夫</h4>
 <p>攻撃ステートからは <code>BulletFireRequest</code> として、弾の種類、生成基準位置、発射方向だけを <code>GunShooter</code> へ渡す形にしました。</p>
@@ -801,7 +818,7 @@ code {
 <hr>
 <h3 id="5-データ駆動によるステージ読み込みシステムの構築">5. データ駆動によるステージ読み込みシステムの構築</h3>
 <a href="Image/SystemFlow/データ駆動ステージ読み込みの効果.png" target="_blank">
-  <img class="diagram-image" src="Image/SystemFlow/データ駆動ステージ読み込みの効果.png" alt="弾丸生成システムの構成図">
+  <img class="diagram-image" src="Image/SystemFlow/データ駆動ステージ読み込みの効果.png" alt="データ駆動ステージ読み込みの効果">
 </a>
 <h4 id="課題-4">課題</h4>
 <p>既存の設計ではステージごとにクラスを作成していたため、ステージが増えるたびに同じような処理が増え、
@@ -816,30 +833,32 @@ code {
 <hr>
 <h3 id="6-tsvによるパラメータ外部化">6. TSVによるパラメータ外部化</h3>
 <a href="Image/Table/TSVTable.png" target="_blank">
-  <img class="diagram-image" src="Image/Table/TSVTable.png" alt="">
+  <img class="diagram-image" src="Image/Table/TSVTable.png" alt="TSVによるパラメータ外部化">
 </a>
 <h3 id="導入背景">導入背景</h3>
-<p>当初は<code>std::unordred_map</code>を用いてテーブル管理を行っていました。
+<p>当初は <code>std::unordered_map</code> を用いてテーブル管理を行っていました。
 しかし、開発が進むうちに調整項目や引数が増えテーブルとしての視認性が悪くなってしまう問題が発生してしまいました。そこで、この問題を解決するべくTSVファイルによるパラメーターの外部化を図りました。これによりTSVデータの数値を変更するだけでゲームへ反映することができ、誰でも簡単に調整が可能となっています。</p>
 <h3 id="なぜjsonではなくtsvなのか">なぜJSONではなくTSVなのか</h3>
-<p>ステータス管理としてJSONを用いれる例は多いと思います。ですが、今回の担当範囲は武器種や弾丸などの数値一覧となりいわゆる表データであります。1行1列ごとに調整項目という構造上である以上、TSVファイルが最適だと判断しました。また、TSVファイルはExcelデータをそのまま編集できるためプログラムが慣れていない方でも編集が容易なのは大きなメリットだと感じています。JSONの場合、括弧やカンマの記載ミスなどにより表形式のデータを手作業で直す用途には向きにくいと考えました。以上の理由から、汎用性の高い JSON ではなく、今回のデータ構造と編集フローに合った TSV を採用しました。</p>
+<p>ステータス管理としてJSONを用いられる例は多いと思います。ですが、今回の担当範囲は武器種や弾丸などの数値一覧という、いわゆる表データです。1行1列ごとに調整項目が並ぶ表データである以上、TSVファイルが最適だと判断しました。また、TSVファイルはExcelデータをそのまま編集できるためプログラムに慣れていない方でも編集が容易なのは大きなメリットだと感じています。JSONの場合、括弧やカンマの記載ミスなどにより表形式のデータを手作業で直す用途には向きにくいと考えました。以上の理由から、汎用性の高い JSON ではなく、今回のデータ構造と編集フローに合った TSV を採用しました。</p>
 <hr>
-<p>##　7.オブジェクトプールによる生成/破棄コストの削減</p>
+<h3 id="7-オブジェクトプールによる生成破棄コストの削減">7. オブジェクトプールによる生成・破棄コストの削減</h3>
 <a href="Image/ObjectPool.png" target="_blank">
   <img class="diagram-image" src="Image/ObjectPool.png" alt="オブジェクトプールの構成図">
 </a>
 <h3 id="処理の流れ">処理の流れ</h3>
 <p>起動時にテンプレートから必要数を把握し、事前に生成しています。
-また、表示のタイミングを<code>Active()</code>,<code>OnRelease()</code>で切り替え、
-プールにからの状態ができた場合のみ、<code>Factory</code>クラスから追加生成を依頼しています。</p>
+また、表示のタイミングを <code>Active()</code>、<code>OnRelease()</code> で切り替え、
+プールが空の状態になった場合のみ、<code>Factory</code> クラスから追加生成を依頼しています。</p>
 <h3 id="他システムとの組み合わせ">他システムとの組み合わせ</h3>
 <p>攻撃Stateは発射タイミング、<code>BulletFireRequest</code> / <code>BulletFactory</code> は生成ロジック、<code>Template&lt;&gt;</code> は取得・返却を担当します。
 生成と再利用を分離することで、セクション4のFactory設計と役割が重ならない構成にしています。
 まず <code>PresentDamageIndicator</code> から適用し、弾丸・魔法も同じ流れで載せられるようにしています。</p>
 <h3 id="この構成になった理由">この構成になった理由</h3>
-<p>Factoryパターンのみだと毎フレーム生成を行わなければならなく、生成と破棄に負荷がとてもかかってしまいます。また、プールだけの適応としても種類ごとの生成にはプール側に偏ってしますため少し普通号に感じてしましした。そこで、両者を組み合わせることで生成時のルールと寿命を管理するだけでよくなり、他のプール化したい対象が居れば同様の手法で取り組めるようになっています。</p>
+<p>Factoryパターンのみでは都度の生成・破棄が続き、生成と破棄に負荷がかかってしまいます。
+Poolのみでは種類ごとの生成ロジックがプール側に偏り、責務が分かりにくくなります。
+両者を組み合わせることで、生成ルールと寿命管理を分けられ、プール化したい対象が増えても同じ手法で対応できます。</p>
 <hr>
-<h2 id="8-非同期ロードと段階的構築システム">8. 非同期ロードと段階的構築システム</h2>
+<h3 id="8-非同期ロードと段階的構築システム">8. 非同期ロードと段階的構築システム</h3>
 <a href="Image/Loading.png" target="_blank">
   <img class="diagram-image" src="Image/Loading.png" alt="非同期ロードと段階的構築の構成図">
 </a>
@@ -851,7 +870,8 @@ code {
 <li>メインスレッド：1フレーム1ステップでインゲーム構築</li>
 <li>完了後、インゲームシーンへ遷移</li>
 </ol>
-<p>以下は <code>Gif</code> フォルダ内の4種類の差分GIFです。</p>
+<p>読み込み中は進捗バーに加え、武器種ごとのランナー演出を表示します。
+以下は <code>Gif</code> フォルダ内の4種類の差分GIFです。</p>
 <div class="video-grid-2x2">
   <div class="video-window">
     <div class="video-window-header">
@@ -889,121 +909,13 @@ code {
     </div>
     <div class="video-window-caption">銃キャラのローディング演出</div>
   </div>
-</div>  <div class="video-window">
-    <div class="video-window-header">
-      <span class="video-window-dot"></span>剣
-    </div>
-    <div class="video-window-body">
-      <video src="Video/Loading_Sword.mp4" controlsmutedloopplaysinlinepreload="metadata"></video>
-    </div>
-    <div class="video-window-caption">剣キャラのローディング演出</div>
-  </div>
-  <div class="video-window">
-    <div class="video-window-header">
-      <span class="video-window-dot"></span>ハンマー
-    </div>
-    <div class="video-window-body">
-      <video src="Video/Loading_Hammer.mp4" controlsmutedloopplaysinlinepreload="metadata"></video>
-    </div>
-    <div class="video-window-caption">ハンマーキャラのローディング演出</div>
-  </div>
-  <div class="video-window">
-    <div class="video-window-header">
-      <span class="video-window-dot"></span>杖
-    </div>
-    <div class="video-window-body">
-      <video src="Video/Loading_Wand.mp4" controlsmutedloopplaysinlinepreload="metadata"></video>
-    </div>
-    <div class="video-window-caption">杖キャラのローディング演出</div>
-  </div>
-  <div class="video-window">
-    <div class="video-window-header">
-      <span class="video-window-dot"></span>銃
-    </div>
-    <div class="video-window-body">
-      <video src="Video/Loading_Gun.mp4" controlsmutedloopplaysinlinepreload="metadata"></video>
-    </div>
-    <div class="video-window-caption">銃キャラのローディング演出</div>
-  </div>
-</div>  <div class="video-window">
-    <div class="video-window-header">
-      <span class="video-window-dot"></span>剣
-    </div>
-    <div class="video-window-body">
-      <video src="Gif/Loading_Sword.gif" controlsmutedloopplaysinlinepreload="metadata"></video>
-    </div>
-    <div class="video-window-caption">剣キャラのローディング演出</div>
-  </div>
-  <div class="video-window">
-    <div class="video-window-header">
-      <span class="video-window-dot"></span>ハンマー
-    </div>
-    <div class="video-window-body">
-      <video src="Gif/Loading_Hammer.gif" controlsmutedloopplaysinlinepreload="metadata"></video>
-    </div>
-    <div class="video-window-caption">ハンマーキャラのローディング演出</div>
-  </div>
-  <div class="video-window">
-    <div class="video-window-header">
-      <span class="video-window-dot"></span>杖
-    </div>
-    <div class="video-window-body">
-      <video src="Gif/Loading_Wand.gif" controlsmutedloopplaysinlinepreload="metadata"></video>
-    </div>
-    <div class="video-window-caption">杖キャラのローディング演出</div>
-  </div>
-  <div class="video-window">
-    <div class="video-window-header">
-      <span class="video-window-dot"></span>銃
-    </div>
-    <div class="video-window-body">
-      <video src="" controlsmutedloopplaysinlinepreload="metadata"></video>
-    </div>
-    <div class="video-window-caption">銃キャラのローディング演出</div>
-  </div>
-</div>
-    <div class="video-window-header">
-      <span class="video-window-dot"></span>剣
-    </div>
-    <div class="video-window-body">
-      <video src="Video/Loading_Sword.mp4" controlsmutedloopplaysinline></video>
-    </div>
-    <div class="video-window-caption">剣キャラのローディング演出</div>
-  </div>
-  <div class="video-window">
-    <div class="video-window-header">
-      <span class="video-window-dot"></span>ハンマー
-    </div>
-    <div class="video-window-body">
-      <video src="Video/Loading_Hammer.mp4" controlsmutedloopplaysinline></video>
-    </div>
-    <div class="video-window-caption">ハンマーキャラのローディング演出</div>
-  </div>
-  <div class="video-window">
-    <div class="video-window-header">
-      <span class="video-window-dot"></span>杖
-    </div>
-    <div class="video-window-body">
-      <video src="Video/Loading_Wand.mp4" controlsmutedloopplaysinline></video>
-    </div>
-    <div class="video-window-caption">杖キャラのローディング演出</div>
-  </div>
-  <div class="video-window">
-    <div class="video-window-header">
-      <span class="video-window-dot"></span>銃
-    </div>
-    <div class="video-window-body">
-      <video src="Video/Loading_Gun.mp4" controlsmutedloopplaysinline></video>
-    </div>
-    <div class="video-window-caption">銃キャラのローディング演出</div>
-  </div>
 </div>
 <h3 id="他システムとの組み合わせ-1">他システムとの組み合わせ</h3>
 <p><code>LoadStageData</code> でステージ構成を定義し、TSVでパラメータを外部化しています。
 非同期ロード管理がファイル読み込み・パース、段階構築ヘルパーがメインスレッド上でのオブジェクト生成、ローディングシーンが遷移制御と演出を担当します。
 「何を載せるか」「読む」「載せる」「見せる」を分け、セクション5・6のデータ駆動設計の延長として構築しています。</p>
 <h3 id="この構成になった理由-1">この構成になった理由</h3>
-<p>ファイルI/Oはサブスレッド向きですが、描画やゲームオブジェクトの生成はメインスレッド側の処理が多いため、全部を非同期に寄せず「読む／載せる」で分担しています。
+<p>ファイルI/Oはサブスレッド向きですが、描画やゲームオブジェクトの生成はメインスレッド側の処理が多いため、処理をすべて非同期にせず「読む／載せる」で分担しています。
 4武器のランナー演出で、待ち時間中も処理が進んでいることを視覚的に伝えています。</p>
 <h3 id="今後の改善">今後の改善</h3>
 <p>現状は読み込みと構築の分担までですが、生成・読み込み対象をさらにスレッドで仕分けし、ロード時間の短縮を進めます。</p>
@@ -1035,7 +947,7 @@ code {
 </tr>
 <tr>
 <td>確認してほしい内容</td>
-<td>PV / キャラクター紹介 / 攻撃方法 / 入力Adapter / BulletFireRequest</td>
+<td>PV / キャラクター紹介 / 攻撃方法 / 入力Adapter / BulletFireRequest / Loading</td>
 </tr>
 <tr>
 <td>既知の不具合</td>
@@ -1059,21 +971,15 @@ code {
 </ul>
 </li>
 <li>
-<p>非同期ロード</p>
+<p>ロード処理の最適化</p>
 <ul>
-<li>ステージを読み込む際など、間のウェイト処理として実装していこうと思います。</li>
+<li>読み込みと構築の分担は実装済みです。今後は生成・読み込み対象のスレッド仕分けを進め、ロード時間の短縮を図ります。</li>
 </ul>
 </li>
 <li>
 <p>ガードシステムの実装</p>
 <ul>
 <li>ガードを展開するとダメージを一定期間軽減できるように実装予定です。</li>
-</ul>
-</li>
-<li>
-<p>生成データのスレッド分け</p>
-<ul>
-<li>現在はメインスレッドに生成を任せている状態なので、メインスレッドとサブスレッドに何を読み込ませるかを仕分けし、ローディング画面の最適化を行おうと思います。</li>
 </ul>
 </li>
 </ul>
